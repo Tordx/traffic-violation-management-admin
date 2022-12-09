@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, Redirect, Navigate  } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Redirect, Navigate , Switch} from 'react-router-dom';
 
 import SideBar from './components/Sidebar';
 import sidebar_menu from './constants/sidebar-menu';
@@ -20,14 +20,13 @@ function App () {
       
       <div className='dashboard-container'>
               <div className='dashboard-body'>
-                <Routes>
-                  <Route path = "/login" element = {<Login href = '/dashboard'/>}/>
+                <Routes> 
+                  <Route path = "/login" element = {<Login />}/>
                   <Route path="*" element={<div>Error</div>} />
                   <Route exact path='/dashboard' element = {<Dashboard/>}/>
                   <Route exact path='/citation' element = {<Citation/>}/>
                   <Route exact path='/users' element = {<Users/>}/>
                   <Route exact path = '/admin-settings' element = {<AdminSettings/>}/>
-               
                 </Routes>
                 
               </div>     
