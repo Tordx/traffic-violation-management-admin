@@ -39,3 +39,8 @@
     cursor: pointer;
     border-radius: 20px;
 }
+
+.header-title {
+
+    color: #000;
+}

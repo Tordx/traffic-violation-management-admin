@@ -33,7 +33,6 @@
     width: 60%;
     height: 3rem;
     margin: 10px;
-    border-radius: 5px;
     justify-self: center;
     border-width: 0.1px;
 
@@ -43,8 +42,7 @@
 
     width: 35%;
     padding: 1rem;
-    border-radius: 5px;
-    background-color: #E57F84;
+    background-color: #a1b3dd;
     text-align: center;
     font-style: normal;
     font-family: Poppins;
@@ -52,6 +50,19 @@
     margin: 1rem;
     font-size: 1.5rem;
     
+
+  }
+
+  .login-button:hover {
+
+    cursor: pointer;
+
+  }
+
+  .login-button:active {
+
+    width: 36%;
+    padding: 1.1rem;
 
   }
 
