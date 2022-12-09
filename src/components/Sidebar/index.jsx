@@ -27,11 +27,14 @@ function SideBar ({ menu }) {
     return(
         <nav className='sidebar'>
             <div className='sidebar-container'>
-                <div className='sidebar-logo-container'>
+                <a className='sidebar-logo-container'
+                    href = 'localhost:3000/dashboard'
+                >
                     <img
+                        draggable = {false}
                         src={logo}
                         alt="logo" />
-                </div>
+                </a>
 
                 <div className='sidebar-container'>
                     <div className='sidebar-items'>

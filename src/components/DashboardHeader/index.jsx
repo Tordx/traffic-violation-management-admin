@@ -4,10 +4,10 @@ import './styles.css';
 import NotificationIcon from '../../assets/icons/notification.svg';
 import SettingsIcon from '../../assets/icons/settings.svg';
 
-function DashboardHeader ({ btnText, onClick }) {
+function DashboardHeader (props) {
     return(
         <div className='dashbord-header-container'>
-              <h1 className='header-title' >Apprehended Drivers</h1>
+              <h1 className='header-title' >{props.title}</h1>
 
             <div className='dashbord-header-right'>
                 <img 

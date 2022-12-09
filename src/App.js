@@ -10,6 +10,7 @@ import Dashboard from './pages/Dashboard/Dashboard';
 import Users from './pages/Dashboard/Users';
 import AdminSettings from './pages/Dashboard/Admin-Settings';
 import Login from './pages/Login';
+import Error404 from './pages/error404';
 
 function App () {
 
@@ -22,7 +23,7 @@ function App () {
               <div className='dashboard-body'>
                 <Routes>
                   <Route path = "/login" element = {<Login href = '/dashboard'/>}/>
-                  <Route path="*" element={<div>Error</div>} />
+                  <Route path="*" element={<Error404/>} />
                   <Route exact path='/dashboard' element = {<Dashboard/>}/>
                   <Route exact path='/citation' element = {<Citation/>}/>
                   <Route exact path='/users' element = {<Users/>}/>
