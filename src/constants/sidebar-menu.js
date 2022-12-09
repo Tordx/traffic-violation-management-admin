@@ -1,12 +1,12 @@
 import DashboardIcon from '../assets/icons/dashboard.png';
 import ShippingIcon from '../assets/icons/users.png';
 import ProductIcon from '../assets/icons/citation.png';
-import UserIcon from '../assets/icons/settings.png';
+import UserIcon from '../assets/icons/announcements.png';
 
 const sidebar_menu = [
     {
         id: 1,
-        icon: DashboardIcon,
+        icon: DashboardIcon,    
         path: '/dashboard',
         title: 'Dashboard',
     },
@@ -26,7 +26,7 @@ const sidebar_menu = [
         id: 4,
         icon: UserIcon,
         path: '/admin-settings',
-        title: 'Admin Settings',
+        title: 'Announcements',
     }
 ]
 

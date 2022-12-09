@@ -48,6 +48,7 @@ function Citation () {
 
     return(
         <div className='dashboard-content'>
+            <title>Citations</title>
             <div className='dashboard-container'>
             <SideBar menu = {sidebar_menu}/>
             <div className='dashboard-body'>
@@ -70,10 +71,11 @@ function Citation () {
 
                 <table>
                     <thead>
-                        <th>ID</th>
+                        <th>REFERENCE NUMBER</th>          
                         <th>DATE</th>
                         <th>STATUS</th>
                         <th>DRIVER</th>
+                        <th>PHONE NUMBER</th>
                         <th>VIOLATION</th>
                         <th>PENALTY</th>
                     </thead>
@@ -114,6 +116,7 @@ function Citation () {
                                             <span>{violators.first_name} {violators.last_name}</span>
                                         </div>
                                     </td>
+                                    <td><span>this</span></td>
                                     <td><span>{violators.violation}</span></td>
                                     <td><span>P{violators.penalty}</span></td>
                                 </tr>

@@ -17,13 +17,15 @@ export default function Error404() {
       
       />
         <div className='error-container'>
-        <div className='error-box'>
+        <title>Error 404</title>
+          <div className='error-box'>
             <img
             draggable = {false}
             width={350} height ={350}
             src='https://media.istockphoto.com/id/1149451413/vector/girl-lift-her-hands-with-confuse-face.jpg?s=612x612&w=0&k=20&c=Yp_Qi7p_OUJJS62QEWJp5YG_OhDwHDwGPHbYVFCZJ7M='
             />
-            <h2 className='error-text' >There's nothing here</h2>
+            <h1 className='error-text' >There's nothing here</h1>
+            <h4>← you can always navigate the admin dashboard using side bar menu</h4>
           </div>
         </div>
       </div>

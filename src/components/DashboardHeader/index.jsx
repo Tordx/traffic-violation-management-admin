@@ -9,7 +9,7 @@ function DashboardHeader (props) {
         <div className='dashbord-header-container'>
               <h1 className='header-title' >{props.title}</h1>
 
-            <div className='dashbord-header-right'>
+            {/* <div className='dashbord-header-right'>
                 <img 
                     src={NotificationIcon}
                     alt='notification-icon'
@@ -21,7 +21,7 @@ function DashboardHeader (props) {
                 <img
                     className='dashbord-header-avatar'
                     src='https://reqres.in/img/faces/9-image.jpg' />
-            </div>
+            </div> */}
         </div>
     )
 }
