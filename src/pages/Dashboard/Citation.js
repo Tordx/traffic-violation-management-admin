@@ -52,6 +52,7 @@ function Citation () {
             <SideBar menu = {sidebar_menu}/>
             <div className='dashboard-body'>
             <DashboardHeader
+            title = 'Apprehended Drivers'
             />
             
             <div className='dashboard-content-container'>

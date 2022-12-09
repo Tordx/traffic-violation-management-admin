@@ -10,6 +10,7 @@ import Dashboard from './pages/Dashboard/Dashboard';
 import Users from './pages/Dashboard/Users';
 import AdminSettings from './pages/Dashboard/Admin-Settings';
 import Login from './pages/Login';
+import Error404 from './pages/error404';
 
 function App () {
 
