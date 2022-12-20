@@ -6,7 +6,7 @@
     display: flex;
     justify-content: center;
     position: sticky;
-    background-image: linear-gradient(#ffff, #ffff, #ffff);
+    background-image: linear-gradient(#1240ac, #1240ac, #e2e2e2);
 }
 .sidebar-logo-container {
     display: 'flex';
@@ -32,7 +32,7 @@
     padding: 1.5em;
     padding-left: 2em;
     display: flex;
-    color: #181D31;
+    color: #f2f2f2;
     list-style: none;
     text-decoration: none;
     align-items: center;
@@ -40,18 +40,19 @@
     cursor: pointer;
 }
 .sidebar-item:hover {
-    background-color: #e2e2e2;
+    background-color: #f2f2f2;
+    color: #000;
 }   
 .sidebar-item-active {
     padding: 1.5em;
     padding-left: 2em;
     display: flex;
-    color: #FFFFFF;
+    color: #000;
     list-style: none;
     text-decoration: none;
     align-items: center;
     justify-content: flex-start;
-    background-color: #a1b3dd;
+    background-color: #f2f2f2;
     cursor: pointer;
 }
 .sidebar-item-icon {
