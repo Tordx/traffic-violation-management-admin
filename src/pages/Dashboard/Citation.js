@@ -85,7 +85,6 @@ function Citation () {
 
     return(
         <div className='dashboard-content'>
-            <title>Citations</title>
             <div className='dashboard-container'>
             <SideBar menu = {sidebar_menu}/>
             <div className='dashboard-body'>
@@ -108,7 +107,6 @@ function Citation () {
 
                 <table>
                     <thead>
-<<<<<<< HEAD
                         <th>ID</th>
                         <th>DRIVER</th>
                         <th>DriverAddress</th>
@@ -122,15 +120,6 @@ function Citation () {
                         <th>LicensePlate</th> */}
                         {/* <th>VehicleType</th> */}
                         {/* <th>Violation</th> */}
-=======
-                        <th>REFERENCE NUMBER</th>          
-                        <th>DATE</th>
-                        <th>STATUS</th>
-                        <th>DRIVER</th>
-                        <th>PHONE NUMBER</th>
-                        <th>VIOLATION</th>
-                        <th>PENALTY</th>
->>>>>>> be42d3f3077b487e484f5161dafea70fcff392f5
                     </thead>
 
                     {orders.length !== 0 ?
@@ -165,7 +154,6 @@ function Citation () {
                                                     alt='refunded-icon'
                                                     className='dashboard-content-icon' />
                                             : null}
-<<<<<<< HEAD
                                             <span>{violators.DriverAddress}</span>
                                         </div> */}
                                     {/* </td> */}
@@ -179,23 +167,6 @@ function Citation () {
                                     {/* <td><span>{violators.LicensePlate}</span></td> */}
                                     {/* <td><span>{violators.VehicleType}</span></td> */}
                                     {/* <td><span>{violators.penalty}</span></td> */}
-=======
-                                            <span>{violators.status}</span>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div>
-                                            <img 
-                                                src={violators.avatar}
-                                                className='dashboard-content-avatar'
-                                                alt={violators.first_name + ' ' +violators.last_name} />
-                                            <span>{violators.first_name} {violators.last_name}</span>
-                                        </div>
-                                    </td>
-                                    <td><span>this</span></td>
-                                    <td><span>{violators.violation}</span></td>
-                                    <td><span>P{violators.penalty}</span></td>
->>>>>>> be42d3f3077b487e484f5161dafea70fcff392f5
                                 </tr>
                             ))}
                         </tbody>
