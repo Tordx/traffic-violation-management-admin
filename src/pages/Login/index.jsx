@@ -113,6 +113,7 @@ export default function Login(props) {
 
   return (
     <div className='login-container' id='container-colors'>
+      <title>Login</title>
         <div className='login-box' >
             <img
             className='logo-size'
@@ -124,7 +125,7 @@ export default function Login(props) {
             <input className='input-box' type = 'password' placeholder='password' onChange={(e) => setPasscode(e.target.value)} />
             {/* <button onClick={setPopup(true)}/> */}
             {/* href = {'/dashboard'} */}
-                <a className='login-text login-button' onClick = {LoginData} >LOG IN</a>
+                <a className='login-text login-button' href = '/dashboard' onClick = {LoginData} >LOG IN</a>
         </div>
     </div>
   )

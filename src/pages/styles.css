@@ -20,6 +20,14 @@
     flex-direction: row;
     justify-content: space-between;
 }
+.dashboard-content-header1 {
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
 .dashboard-content-header h2 {
     margin-top: auto;
     margin-bottom: auto;
@@ -27,11 +35,12 @@
     font-size: xx-large;
     font-weight: 700;
 }
-.dashboard-content-search {
+.dashboard-content-search { 
+    width: 350px;
     font-weight: 400;
     line-height: 1.4em;
     letter-spacing: 0.009em;
-    box-sizing: border-box;
+    box-sizing: content-box;
     cursor: text;
     display: inline-flex;
     -webkit-box-align: center;

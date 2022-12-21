@@ -50,13 +50,14 @@ export default function Users() {
     return (
 
       <div className='dashboard-container'>
-      <SideBar menu={sidebar_menu} />
+        <title>User Settings</title>
+            <SideBar menu={sidebar_menu} />
       
       
-      <div className='dashboard-body'>
-      <DashboardHeader
-      title = 'User Settings'
-      />
+        <div className='dashboard-body'>
+        <DashboardHeader
+            title = 'User Settings'
+            />
         <div className='dashboard-content-container'>
                 <div className='dashboard-content-header'>
                     <h2>User Status</h2>

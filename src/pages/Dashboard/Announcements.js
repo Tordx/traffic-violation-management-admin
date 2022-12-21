@@ -5,20 +5,21 @@ import sidebar_menu from '../../constants/sidebar-menu'
 import '../styles.css'
 import '../../App.css'
 
-export default function AdminSettings() {
+export default function Announcements() {
   return (
    
-    <div className='dashboard-container'>
+  <div className='dashboard-container'>     
+    <title>Announcements</title>
       <SideBar menu={sidebar_menu} />
       
       
       <div className='dashboard-body'>
       <DashboardHeader
-      title = 'Admin Settings'
+      title = 'Announcements'
       />
         <div className='dashboard-content-container'>
         <div className='dashboard-content-header'>
-            <h2>Preference</h2>
+            <h2>Add Announcements</h2>
           </div>
         </div>
       </div>
