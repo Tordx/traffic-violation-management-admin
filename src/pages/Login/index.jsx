@@ -5,6 +5,7 @@ import whitelogo from '../../assets/images/tvmlogo.png';
 import axios from "axios";
 import PouchDB from "pouchdb"
 import { Navigate } from 'react-router-dom';
+import Popup from 'reactjs-popup';
 // import uuid from 'react-native-uuid';
 
 export default function Login(props) {
@@ -17,12 +18,19 @@ export default function Login(props) {
   const [passcode, setPasscode] = useState('')
   const [data, setData] = useState('')
   const [navigate, setNavigate] = React.useState(false)
+  const [popup, setPopup] = React.useState(false)
 
 
   if(navigate){
     return <Navigate to= "/dashboard"/>
   }
 
+//  if(popup){
+//  return <Popup trigger={popup}>
+//   <h3>My popup</h3>
+//   <p>aler alert</p>
+//   </Popup>
+//  }
 
    const LoginData = async () => {
 
@@ -44,20 +52,31 @@ export default function Login(props) {
           let filteredData = modifiedArr.filter(item => {
               return item.passcode === passcode
             });
-            if(filteredData) {
-                let newFilterData = filteredData.map(item => {
-                    return item
-                })
-                setData(newFilterData)
-                if(newFilterData.length === 0){
-                  setNavigate(false)
-                }else{
-                  setNavigate(true)
-                }
+            const newusername = filteredData[0].username
+            const newpasscode = filteredData[0].passcode
+            
+            if(newusername === username && newpasscode === passcode){
+              setNavigate(true)
+            }else{
+           console.log("yeyeyeyeye")
+            }
+            // if(filteredData) {
+            //     let newFilterData = filteredData.map(item => {
+            //         return item
+            //     })
+                // setData(newFilterData)
+                // if(newFilterData.length === 0){
+                //   setNavigate(false)
+                // }else{
+                //   setNavigate(true)
+                // }
              
-                console.log('newFilterData')
-                console.log(newFilterData)
-                console.log('newFilterData')
+                // console.log('newusername')
+                // console.log(newusername)
+                // console.log('newusername')
+                // console.log('newpasscode')
+                // console.log(newpasscode)
+                // console.log('newpasscode')
 
                 // dispatch(setStudentInfo(newFilterData))
                 // const Username = newFilterData[0].username;
@@ -83,10 +102,10 @@ export default function Login(props) {
 
                 //    }else{
                 //      Alert.alert('StudentID and Birthdate not match')
-                //    }
-            }else{
-             console.log('done')
-            }
+            //     //    }
+            // }else{
+            //  console.log('done')
+            // }
             
         }
        
@@ -103,7 +122,7 @@ export default function Login(props) {
             <h1> ADMIN DASHBOARD </h1>
             <input className='input-box' type = 'name' placeholder='username'  onChange={(e) => setUsername(e.target.value)} />
             <input className='input-box' type = 'password' placeholder='password' onChange={(e) => setPasscode(e.target.value)} />
-            {/* <button onClick={LoginData}/> */}
+            {/* <button onClick={setPopup(true)}/> */}
             {/* href = {'/dashboard'} */}
                 <a className='login-text login-button' onClick = {LoginData} >LOG IN</a>
         </div>

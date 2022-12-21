@@ -3,7 +3,7 @@ import DashboardHeader from '../../components/DashboardHeader';
 
 import all_violators from '../../constants/all-violators';
 import {calculateRange, sliceData} from '../../utils/table-pagination';
-
+import PouchDB from 'pouchdb';
 import '../styles.css';
 import DoneIcon from '../../assets/icons/done.svg';
 import CancelIcon from '../../assets/icons/cancel.svg';
@@ -16,11 +16,32 @@ function Citation () {
     const [orders, setOrders] = useState(all_violators);
     const [page, setPage] = useState(1);
     const [pagination, setPagination] = useState([]);
+    const [status, setStatus] = useState();
 
     useEffect(() => {
-        setPagination(calculateRange(all_violators, 5));
-        setOrders(sliceData(all_violators, page, 5));
+        // setPagination(calculateRange(all_violators, 5));
+        // setOrders(sliceData(all_violators, page, 5));
+        newdata()
     }, []);
+
+    const newdata = async() => {
+        
+     const remoteDBViolation = new PouchDB('http://admin:1234@192.168.0.199:5984/violation')
+
+        var result = await remoteDBViolation.allDocs({
+            include_docs: true,
+            attachments: true
+          });
+          if(result.rows){
+              let modifiedArr = result.rows.map(function(item){
+              return item.doc
+          });
+          console.log('modifiedArr')
+          console.log(modifiedArr)
+          setOrders(modifiedArr)
+          console.log('modifiedArr')
+    }
+}
 
     // Search
     const __handleSearch = (event) => {
@@ -28,9 +49,9 @@ function Citation () {
         if (event.target.value !== '') {
             let search_results = orders.filter((item) =>
                 
-                item.first_name.toLowerCase().includes(search.toLowerCase()) ||
-                item.last_name.toLowerCase().includes(search.toLowerCase()) ||
-                item.id.toLowerCase().includes(search.toLowerCase())
+                item._id.toLowerCase().includes(search.toLowerCase()) ||
+                item.DriverName.toLowerCase().includes(search.toLowerCase()) ||
+                item.DriverAddress.toLowerCase().includes(search.toLowerCase())
                 
             );
             setOrders(search_results);
@@ -43,8 +64,24 @@ function Citation () {
     // Change Page 
     const __handleChangePage = (new_page) => {
         setPage(new_page);
-        setOrders(sliceData(all_violators, new_page, 5));
+        setOrders(sliceData(orders, new_page, 5));
     }
+
+    const sdssss = (violators) => {
+        // console.log('dsdsd')
+        // console.log(violators)
+        // console.log('dsdsd')
+       var data =  {...violators, status: "Not Paid"}
+       const dasta = [...orders , data]
+       console.log('data')
+       console.log(data)
+       console.log('data')
+       console.log('dasta')
+       console.log(dasta)
+       console.log('dasta')
+       setOrders(dasta)
+    }
+   
 
     return(
         <div className='dashboard-content'>
@@ -71,21 +108,36 @@ function Citation () {
                 <table>
                     <thead>
                         <th>ID</th>
-                        <th>DATE</th>
-                        <th>STATUS</th>
                         <th>DRIVER</th>
-                        <th>VIOLATION</th>
-                        <th>PENALTY</th>
+                        <th>DriverAddress</th>
+                        <th>ContactNumber</th>
+                        <th>LicenseNumber</th>
+                        <th>LicensePlate</th>
+                        <th>VehicleType</th>
+                        <th>Status</th>
+                        {/* <th>ContactNumber</th>
+                        <th>LicenseNumber</th>
+                        <th>LicensePlate</th> */}
+                        {/* <th>VehicleType</th> */}
+                        {/* <th>Violation</th> */}
                     </thead>
 
                     {orders.length !== 0 ?
                         <tbody>
                             {orders.map((violators, index) => (
                                 <tr key={index}>
-                                    <td><span>{violators.id}</span></td>
-                                    <td><span>{violators.date}</span></td>
-                                    <td>
-                                        <div>
+                                    <td><span>{violators._id}</span></td>
+                                    <td><span>{violators.DriverName}</span></td>
+                                    <td><span>{violators.DriverAddress}</span></td>
+                                    <td><span>{violators.ContactNumber}</span></td>
+                                    <td><span>{violators.LicenseNumber}</span></td>
+                                    <td><span>{violators.LicensePlate}</span></td>
+                                    <td><span>{violators.VehicleType}</span></td>
+                                    <button onClick={() => {sdssss(violators)}}>
+                                    <td><span>{violators.status}</span></td>
+                                    </button>
+                                    {/* <td> */}
+                                        {/* <div>
                                             {violators.status === 'Paid' ?
                                                 <img
                                                     src={DoneIcon}
@@ -102,27 +154,26 @@ function Citation () {
                                                     alt='refunded-icon'
                                                     className='dashboard-content-icon' />
                                             : null}
-                                            <span>{violators.status}</span>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div>
-                                            <img 
-                                                src={violators.avatar}
-                                                className='dashboard-content-avatar'
-                                                alt={violators.first_name + ' ' +violators.last_name} />
-                                            <span>{violators.first_name} {violators.last_name}</span>
-                                        </div>
-                                    </td>
-                                    <td><span>{violators.violation}</span></td>
-                                    <td><span>P{violators.penalty}</span></td>
+                                            <span>{violators.DriverAddress}</span>
+                                        </div> */}
+                                    {/* </td> */}
+                                    {/* <td>
+                                        <div> */}
+                                        {/* <td><span>{violators.ContactNumber}</span></td> */}
+                                            
+                                        {/* </div>
+                                    </td> */}
+                                    {/* <td><span>{violators.ContactNumber}</span></td> */}
+                                    {/* <td><span>{violators.LicensePlate}</span></td> */}
+                                    {/* <td><span>{violators.VehicleType}</span></td> */}
+                                    {/* <td><span>{violators.penalty}</span></td> */}
                                 </tr>
                             ))}
                         </tbody>
                     : null}
                 </table>
 
-                {orders.length !== 0 ?
+                {/* {orders.length !== 0 ?
                     <div className='dashboard-content-footer'>
                         {pagination.map((item, index) => (
                             <span 
@@ -137,7 +188,7 @@ function Citation () {
                     <div className='dashboard-content-footer'>
                         <span className='empty-table'>No data</span>
                     </div>
-                }
+                } */}
             </div>
             </div>
             </div>
