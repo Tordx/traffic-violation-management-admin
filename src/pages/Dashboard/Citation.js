@@ -109,11 +109,11 @@ function Citation () {
                     <thead>
                         <th>ID</th>
                         <th>DRIVER</th>
-                        <th>DriverAddress</th>
-                        <th>ContactNumber</th>
-                        <th>LicenseNumber</th>
-                        <th>LicensePlate</th>
-                        <th>VehicleType</th>
+                        <th>Driver Address</th>
+                        <th>Contact Number</th>
+                        <th>License Number</th>
+                        <th>License Plate</th>
+                        <th>Vehicle Type</th>
                         <th>Status</th>
                         {/* <th>ContactNumber</th>
                         <th>LicenseNumber</th>
