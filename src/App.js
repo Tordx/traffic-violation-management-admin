@@ -23,7 +23,7 @@ function App () {
               <div className='dashboard-body'>
                 <Routes> 
                   <Route path = "/login" element = {<Login />}/>
-                  <Route path="*" element={<Error404/>} />
+                  <Route path="*" element={<Login/>} />
                   <Route exact path='/dashboard' element = {<Dashboard/>}/>
                   <Route exact path='/citation' element = {<Citation/>}/>
                   <Route exact path='/users' element = {<Users/>}/>

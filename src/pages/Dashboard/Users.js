@@ -10,18 +10,41 @@ import CancelIcon from '../../assets/icons/cancel.svg';
 import RefundedIcon from '../../assets/icons/refunded.svg';
 import SideBar from '../../components/Sidebar';
 import sidebar_menu from '../../constants/sidebar-menu';
+import PouchDB from 'pouchdb';
 
 export default function Users() {
 
   const [search, setSearch] = useState('');
-  const [orders, setOrders] = useState(all_users);
+  const [orders, setOrders] = useState([]);
   const [page, setPage] = useState(1);
   const [pagination, setPagination] = useState([]);
 
   useEffect(() => {
-      setPagination(calculateRange(all_users, 5));
-      setOrders(sliceData(all_users, page, 5));
+    //   setPagination(calculateRange(all_users, 5));
+    //   setOrders(sliceData(all_users, page, 5));
+      newdata()
   }, []);
+
+  const newdata = async() => {
+        
+    const remoteDBViolation = new PouchDB('http://admin:admin@192.168.100.14:5984/account')
+       console.log('remoteDBViolation');
+       console.log(remoteDBViolation);
+       console.log('remoteDBViolation');
+       var result = await remoteDBViolation.allDocs({
+           include_docs: true,
+           attachments: true
+         });
+         if(result.rows){
+             let modifiedArr = result.rows.map(function(item){
+             return item.doc
+         });
+         console.log('modifiedArr')
+         console.log(modifiedArr)
+         setOrders(modifiedArr)
+         console.log('modifiedArr')
+   }
+}
 
   // Search
   const __handleSearch = (event) => {
@@ -84,22 +107,22 @@ export default function Users() {
                         <tbody>
                             {orders.map((violators, index) => (
                                 <tr key={index}>
-                                    <td><span>{violators.id}</span></td>
-                                    <td><span>{violators.username}</span></td>
+                                    <td><span>{violators._id}</span></td>
+                                    <td><span>{violators.Username}</span></td>
                                     <td>
                                         
-                                            <span>{violators.password}</span>
+                                            <span>{violators.Password}</span>
                                     </td>
                                     <td>
                                         <div>
-                                            <img 
+                                            {/* <img 
                                                 src={violators.avatar}
                                                 className='dashboard-content-avatar'
-                                                alt={violators.first_name + ' ' +violators.last_name} />
-                                            <span>{violators.first_name} {violators.last_name}</span>
+                                                alt={violators.first_name + ' ' +violators.last_name} /> */}
+                                            <span>{violators.Officer}</span>
                                         </div>
                                     </td>
-                                    <td><span>{violators.citations}</span></td>
+                                    <td><span>{violators.Citation}</span></td>
                                 </tr>
                             ))}
                         </tbody>

@@ -26,8 +26,10 @@ function Citation () {
 
     const newdata = async() => {
         
-     const remoteDBViolation = new PouchDB('http://admin:1234@192.168.0.199:5984/violation')
-
+     const remoteDBViolation = new PouchDB('http://admin:admin@192.168.100.14:5984/violation')
+        console.log('remoteDBViolation');
+        console.log(remoteDBViolation);
+        console.log('remoteDBViolation');
         var result = await remoteDBViolation.allDocs({
             include_docs: true,
             attachments: true
@@ -67,22 +69,41 @@ function Citation () {
         setOrders(sliceData(orders, new_page, 5));
     }
 
-    const sdssss = (violators) => {
-        // console.log('dsdsd')
-        // console.log(violators)
-        // console.log('dsdsd')
-       var data =  {...violators, status: "Not Paid"}
-       const dasta = [...orders , data]
-       console.log('data')
-       console.log(data)
-       console.log('data')
-       console.log('dasta')
-       console.log(dasta)
-       console.log('dasta')
-       setOrders(dasta)
-    }
-   
+    const sdssss = async(violators) => {
 
+        const remoteDBViolation = new PouchDB('http://admin:admin@192.168.100.14:5984/violation')
+        console.log('dsdsd')
+        console.log(violators)
+        console.log('dsdsd')
+        remoteDBViolation.get(violators._id).then(function(doc) {
+            return remoteDBViolation.put({
+                _id: doc._id,
+              ...doc,
+              status: "Paid"
+            });
+          }).then(function(response) {
+            console.log('response')
+            console.log(response)
+            console.log('response')
+            setOrders(response)
+          }).catch(function (err) {
+            console.log(err);
+          });
+          await newdata()
+          window.location.reload(true)
+          
+    //    var data =  {...violators, status: "Paid"}
+    //    const dasta = [...orders , data]
+    //    console.log('data')  
+    //    console.log(data)
+    //    console.log('data')
+    //    console.log('dasta')
+    //    console.log(dasta)
+    //    console.log('dasta')
+    //    setOrders(dasta)
+    }
+
+   
     return(
         <div className='dashboard-content'>
             <div className='dashboard-container'>
@@ -127,13 +148,13 @@ function Citation () {
                             {orders.map((violators, index) => (
                                 <tr key={index}>
                                     <td><span>{violators._id}</span></td>
-                                    <td><span>{violators.DriverName}</span></td>
+                                    <td><span>{violators.Driver}</span></td>
                                     <td><span>{violators.DriverAddress}</span></td>
                                     <td><span>{violators.ContactNumber}</span></td>
                                     <td><span>{violators.LicenseNumber}</span></td>
                                     <td><span>{violators.LicensePlate}</span></td>
                                     <td><span>{violators.VehicleType}</span></td>
-                                    <button onClick={() => {sdssss(violators)}}>
+                                    <button disabled={violators.status === "Paid" ? true : false} onClick={() => {sdssss(violators)}}>
                                     <td><span>{violators.status}</span></td>
                                     </button>
                                     {/* <td> */}

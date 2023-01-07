@@ -11,7 +11,7 @@ import Popup from 'reactjs-popup';
 export default function Login(props) {
 
 
-  const remoteDBTrafficAccountAdmin = new PouchDB('http://admin:1234@192.168.0.199:5984/trafficaccountadmin')
+  const remoteDBTrafficAccountAdmin = new PouchDB('http://admin:admin@192.168.100.14:5984/account')
 
       // const id = uuid.v4();
   const [username, setUsername] = useState('')
@@ -22,7 +22,7 @@ export default function Login(props) {
 
 
   if(navigate){
-    return <Navigate to= "/dashboard"/>
+    return <Navigate to= "/citation"/>
   }
 
 //  if(popup){
@@ -50,10 +50,10 @@ export default function Login(props) {
               return item.doc
           });
           let filteredData = modifiedArr.filter(item => {
-              return item.passcode === passcode
+              return item.Password === passcode
             });
-            const newusername = filteredData[0].username
-            const newpasscode = filteredData[0].passcode
+            const newusername = filteredData[0].Username
+            const newpasscode = filteredData[0].Password
             
             if(newusername === username && newpasscode === passcode){
               setNavigate(true)
