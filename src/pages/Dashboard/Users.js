@@ -27,7 +27,7 @@ export default function Users() {
 
   const newdata = async() => {
         
-    const remoteDBViolation = new PouchDB('http://admin:admin@192.168.100.14:5984/account')
+    const remoteDBViolation = new PouchDB('http://admin:admin@192.168.0.191:5984/z_users')
        console.log('remoteDBViolation');
        console.log(remoteDBViolation);
        console.log('remoteDBViolation');
@@ -109,10 +109,9 @@ export default function Users() {
                                 <tr key={index}>
                                     <td><span>{violators._id}</span></td>
                                     <td><span>{violators.Username}</span></td>
-                                    <td>
-                                        
-                                            <span>{violators.Password}</span>
-                                    </td>
+                                    <td> <span>{violators.Password}</span></td>
+                                    <td> <span>{violators.Rank}</span></td>
+                                    <td><span>{violators.Citation}</span></td>
                                     <td>
                                         <div>
                                             {/* <img 
@@ -122,7 +121,7 @@ export default function Users() {
                                             <span>{violators.Officer}</span>
                                         </div>
                                     </td>
-                                    <td><span>{violators.Citation}</span></td>
+                                    
                                 </tr>
                             ))}
                         </tbody>

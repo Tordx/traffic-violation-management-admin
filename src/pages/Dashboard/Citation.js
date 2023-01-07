@@ -26,7 +26,7 @@ function Citation () {
 
     const newdata = async() => {
         
-     const remoteDBViolation = new PouchDB('http://admin:admin@192.168.100.14:5984/violation')
+     const remoteDBViolation = new PouchDB('http://admin:admin@192.168.0.191:5984/z_violation')
         console.log('remoteDBViolation');
         console.log(remoteDBViolation);
         console.log('remoteDBViolation');
@@ -71,7 +71,7 @@ function Citation () {
 
     const sdssss = async(violators) => {
 
-        const remoteDBViolation = new PouchDB('http://admin:admin@192.168.100.14:5984/violation')
+        const remoteDBViolation = new PouchDB('http://admin:admin@192.168.0.191:5984/z_violation')
         console.log('dsdsd')
         console.log(violators)
         console.log('dsdsd')
@@ -79,7 +79,7 @@ function Citation () {
             return remoteDBViolation.put({
                 _id: doc._id,
               ...doc,
-              status: "Paid"
+              Status: "Paid"
             });
           }).then(function(response) {
             console.log('response')
@@ -148,14 +148,14 @@ function Citation () {
                             {orders.map((violators, index) => (
                                 <tr key={index}>
                                     <td><span>{violators._id}</span></td>
-                                    <td><span>{violators.Driver}</span></td>
+                                    <td><span>{violators.DriverName}</span></td>
                                     <td><span>{violators.DriverAddress}</span></td>
                                     <td><span>{violators.ContactNumber}</span></td>
                                     <td><span>{violators.LicenseNumber}</span></td>
                                     <td><span>{violators.LicensePlate}</span></td>
                                     <td><span>{violators.VehicleType}</span></td>
-                                    <button disabled={violators.status === "Paid" ? true : false} onClick={() => {sdssss(violators)}}>
-                                    <td><span>{violators.status}</span></td>
+                                    <button disabled={violators.Status === "Paid" ? true : false} onClick={() => {sdssss(violators)}}>
+                                    <td><span>{violators.Status}</span></td>
                                     </button>
                                     {/* <td> */}
                                         {/* <div>
