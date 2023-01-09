@@ -27,13 +27,13 @@ export default function Users() {
 
   const newdata = async() => {
         
-    const remoteDBViolation = new PouchDB('http://admin:admin@192.168.0.191:5984/z_users')
+    const remoteDBViolation = new PouchDB('http://admin:admin@192.168.100.14:5984/account')
        console.log('remoteDBViolation');
        console.log(remoteDBViolation);
        console.log('remoteDBViolation');
        var result = await remoteDBViolation.allDocs({
            include_docs: true,
-           attachments: true
+           attachments: true    
          });
          if(result.rows){
              let modifiedArr = result.rows.map(function(item){
@@ -110,18 +110,8 @@ export default function Users() {
                                     <td><span>{violators._id}</span></td>
                                     <td><span>{violators.Username}</span></td>
                                     <td> <span>{violators.Password}</span></td>
-                                    <td> <span>{violators.Rank}</span></td>
+                                    <td> <span>{violators.Officer}</span></td>
                                     <td><span>{violators.Citation}</span></td>
-                                    <td>
-                                        <div>
-                                            {/* <img 
-                                                src={violators.avatar}
-                                                className='dashboard-content-avatar'
-                                                alt={violators.first_name + ' ' +violators.last_name} /> */}
-                                            <span>{violators.Officer}</span>
-                                        </div>
-                                    </td>
-                                    
                                 </tr>
                             ))}
                         </tbody>

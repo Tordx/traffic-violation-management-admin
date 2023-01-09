@@ -26,7 +26,7 @@ function Citation () {
 
     const newdata = async() => {
         
-     const remoteDBViolation = new PouchDB('http://admin:admin@192.168.0.191:5984/z_violation')
+     const remoteDBViolation = new PouchDB('http://admin:admin@192.168.100.14:5984/violation')
         console.log('remoteDBViolation');
         console.log(remoteDBViolation);
         console.log('remoteDBViolation');
@@ -71,7 +71,7 @@ function Citation () {
 
     const sdssss = async(violators) => {
 
-        const remoteDBViolation = new PouchDB('http://admin:admin@192.168.0.191:5984/z_violation')
+        const remoteDBViolation = new PouchDB('http://admin:admin@192.168.100.14:5984/violation')
         console.log('dsdsd')
         console.log(violators)
         console.log('dsdsd')

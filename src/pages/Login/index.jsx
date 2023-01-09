@@ -11,7 +11,7 @@ import Popup from 'reactjs-popup';
 export default function Login(props) {
 
 
-  const remoteDBTrafficAccountAdmin = new PouchDB('http://admin:admin@192.168.0.191:5984/z_users')
+  const remoteDBTrafficAccountAdmin = new PouchDB('http://admin:admin@192.168.100.14:5984/account')
 
       // const id = uuid.v4();
   const [username, setUsername] = useState('')

@@ -22,12 +22,12 @@ const sidebar_menu = [
         path: '/users',
         title: 'Users',
     },
-    // {
-    //     id: 4,
-    //     icon: UserIcon,
-    //     path: '/admin-settings',
-    //     title: 'Announcements',
-    // }
+    {
+        id: 4,
+        icon: UserIcon,
+        path: '/admin-settings',
+        title: 'Create Account',
+    }
 ]
 
 export default sidebar_menu;
