@@ -19,14 +19,15 @@ function Citation () {
     const [status, setStatus] = useState();
 
     useEffect(() => {
-        // setPagination(calculateRange(all_violators, 5));
-        // setOrders(sliceData(all_violators, page, 5));
+        setPagination(calculateRange(all_violators, 10));
+        setOrders(sliceData(all_violators, page, 10));
         newdata()
     }, []);
 
+
     const newdata = async() => {
         
-     const remoteDBViolation = new PouchDB('http://admin:admin@192.168.100.14:5984/violation')
+     const remoteDBViolation = new PouchDB('http://admin:admin@192.168.0.191:5984/z_violation')
         console.log('remoteDBViolation');
         console.log(remoteDBViolation);
         console.log('remoteDBViolation');
@@ -51,9 +52,9 @@ function Citation () {
         if (event.target.value !== '') {
             let search_results = orders.filter((item) =>
                 
-                item._id.toLowerCase().includes(search.toLowerCase()) ||
-                item.DriverName.toLowerCase().includes(search.toLowerCase()) ||
-                item.DriverAddress.toLowerCase().includes(search.toLowerCase())
+            (new RegExp(searchTerm, 'i').test(item.refNum) ||
+            new RegExp(searchTerm, 'i').test(item.DriverName) 
+            )
                 
             );
             setOrders(search_results);
@@ -69,7 +70,7 @@ function Citation () {
         setOrders(sliceData(orders, new_page, 5));
     }
 
-    const sdssss = async(violators) => {
+    const TicketList = async(violators) => {
 
         const remoteDBViolation = new PouchDB('http://admin:admin@192.168.100.14:5984/violation')
         console.log('dsdsd')
@@ -147,54 +148,22 @@ function Citation () {
                         <tbody>
                             {orders.map((violators, index) => (
                                 <tr key={index}>
-                                    <td><span>{violators._id}</span></td>
+                                    <td><span>{violators.refNum}</span></td>
                                     <td><span>{violators.DriverName}</span></td>
                                     <td><span>{violators.DriverAddress}</span></td>
                                     <td><span>{violators.ContactNumber}</span></td>
                                     <td><span>{violators.LicenseNumber}</span></td>
                                     <td><span>{violators.LicensePlate}</span></td>
                                     <td><span>{violators.VehicleType}</span></td>
-                                    <button disabled={violators.Status === "Paid" ? true : false} onClick={() => {sdssss(violators)}}>
+                                    <button disabled={violators.Status === "Paid" ? true : false} onClick={() => {TicketList(violators)}}>
                                     <td><span>{violators.Status}</span></td>
                                     </button>
-                                    {/* <td> */}
-                                        {/* <div>
-                                            {violators.status === 'Paid' ?
-                                                <img
-                                                    src={DoneIcon}
-                                                    alt='paid-icon'
-                                                    className='dashboard-content-icon' />
-                                            : violators.status === 'Not Paid' ?
-                                                <img
-                                                    src={CancelIcon}
-                                                    alt='canceled-icon'
-                                                    className='dashboard-content-icon' />
-                                            : violators.status === 'Expired' ?
-                                                <img
-                                                    src={RefundedIcon}
-                                                    alt='refunded-icon'
-                                                    className='dashboard-content-icon' />
-                                            : null}
-                                            <span>{violators.DriverAddress}</span>
-                                        </div> */}
-                                    {/* </td> */}
-                                    {/* <td>
-                                        <div> */}
-                                        {/* <td><span>{violators.ContactNumber}</span></td> */}
-                                            
-                                        {/* </div>
-                                    </td> */}
-                                    {/* <td><span>{violators.ContactNumber}</span></td> */}
-                                    {/* <td><span>{violators.LicensePlate}</span></td> */}
-                                    {/* <td><span>{violators.VehicleType}</span></td> */}
-                                    {/* <td><span>{violators.penalty}</span></td> */}
                                 </tr>
                             ))}
                         </tbody>
                     : null}
                 </table>
-
-                {/* {orders.length !== 0 ?
+                {orders.length !== 0 ?
                     <div className='dashboard-content-footer'>
                         {pagination.map((item, index) => (
                             <span 
@@ -206,10 +175,8 @@ function Citation () {
                         ))}
                     </div>
                 : 
-                    <div className='dashboard-content-footer'>
-                        <span className='empty-table'>No data</span>
-                    </div>
-                } */}
+                    null
+                }
             </div>
             </div>
             </div>

@@ -19,14 +19,11 @@ export default function Announcements() {
     return <Navigate to= "/users"/>
   }
 
-  const remoteDBTrafficAccountAdmin = new PouchDB('http://admin:admin@192.168.100.14:5984/account')
+  const remoteDBTrafficAccountAdmin = new PouchDB('http://admin:admin@192.168.0.191:5984/z_users')
 
   async function handleSubmit(event) {
     event.preventDefault();
 
-    // console.log('uuid');
-    // console.log(uuid());
-    // console.log('uuid');
    await remoteDBTrafficAccountAdmin.put({
       _id: uuid(),
       Username: username,
@@ -34,13 +31,11 @@ export default function Announcements() {
       Officer: rank,
       Citation: 0
     }).then(function (response) {
-      // handle response
     }).catch(function (err) {
       console.log(err);
     });
     setNavigate(true)
 
-    // submit the form data
   }
 
   return (
