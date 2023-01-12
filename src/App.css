@@ -4,7 +4,7 @@
 }
 .dashboard-body {
     flex: 1;
-    display: flex;
+    display: block;
     flex-direction: column;
     background-color: #f2f2f2;
 }
@@ -34,3 +34,59 @@
     font-size: 35px;
 
 }
+.input-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    min-height: 100vh;
+    overflow-x: hidden;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+
+  }
+  .input-box {
+
+    justify-content: center;
+    align-items: center;
+
+  }
+
+  .input-text {
+
+    width: 36%;
+    padding: 10px;
+    margin-top: 15px;
+    border-radius: .5rem;
+    justify-self: center;
+
+  }
+
+  .add-button {
+
+    width: 35%;
+    padding: 1rem;
+    background-color: #1240ac;
+    text-align: center;
+    font-style: normal;
+    font-family: Poppins;
+    font-weight: 500;
+    margin: 1rem;
+    font-size: 1.5rem;
+    
+
+  }
+
+  .add-button:hover {
+
+    cursor: pointer;
+
+  }
+
+  .add-button:active {
+
+    width: 36%;
+    padding: 1.1rem;
+
+  } 
