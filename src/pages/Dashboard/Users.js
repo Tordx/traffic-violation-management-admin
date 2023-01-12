@@ -92,8 +92,10 @@ export default function Users() {
                             className='dashboard-content-input'
                             onChange={e => __handleSearch(e)} />
                     </div>
-                </div>
+                    
 
+                </div>
+                <a href="add-users">Add users</a>
                 <table>
                     <thead>
                         <th>ID</th>
