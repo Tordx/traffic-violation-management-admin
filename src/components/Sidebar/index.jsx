@@ -48,7 +48,7 @@ function SideBar ({ menu }) {
                     </div>
 
                     <a className='sidebar-footer'
-                    href = '/login'>
+                    href = '/'>
                         <span className='sidebar-item-label'>Logout</span>
                         <img 
                             src={LogoutIcon}

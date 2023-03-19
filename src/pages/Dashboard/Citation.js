@@ -6,8 +6,12 @@ import '../styles.css';
 import SideBar from '../../components/Sidebar';
 import sidebar_menu from '../../constants/sidebar-menu';
 import Modal from '../../utils/modal';
+import { useSelector } from 'react-redux';
 
 function Citation () {
+
+    const currentUser = useSelector(state => state.currentUser)
+
     const [search, setSearch] = useState('');
     const [content, setContent] = useState('');
     const [page, setPage] = useState(1);
@@ -54,8 +58,20 @@ function Citation () {
             let newFilterData = filteredData.map(item => {
               return item;
             });
-            setContent(newFilterData)
+            console.log('====================================currentUser');
+            console.log(currentUser.user.Role);
+            console.log('====================================currentUser');
+            if(currentUser.user.Role === "Admin") {
+            let admindata = newFilterData.filter((item) => !item.hasOwnProperty('ORnumber'));
+            console.log('====================================admindata');
+            console.log(admindata);
+            console.log('====================================admindata');
+            setContent(admindata)
+            }else{
+                setContent(newFilterData)
 
+            }
+            
           }
     }
 }

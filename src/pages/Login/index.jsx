@@ -6,12 +6,15 @@ import axios from "axios";
 import PouchDB from "pouchdb"
 import { Navigate } from 'react-router-dom';
 import Popup from 'reactjs-popup';
+import { useDispatch } from 'react-redux';
+import allActions from '../ReduxAction/indexAction';
 // import uuid from 'react-native-uuid';
 
 export default function Login(props) {
 
 
-  const remoteDBTrafficAccountAdmin = new PouchDB('http://admin:admin@192.168.100.14:5984/account')
+  const remoteDBTrafficAccountUserAdmin = new PouchDB('http://admin:admin@192.168.0.192:5984/z_users')
+  const dispatch = useDispatch()
 
       // const id = uuid.v4();
   const [username, setUsername] = useState('')
@@ -41,7 +44,7 @@ export default function Login(props) {
         //     ToastAndroid.show('Please input your Birthdate', ToastAndroid.SHORT)
         // }
 
-        var result = await remoteDBTrafficAccountAdmin.allDocs({
+        var result = await remoteDBTrafficAccountUserAdmin.allDocs({
             include_docs: true,
             attachments: true
           });
@@ -52,7 +55,8 @@ export default function Login(props) {
           let filteredData = modifiedArr.filter(item => {
               return item.Password === passcode
             });
-            const newusername = filteredData[0].Username
+            dispatch(allActions.userAction.setUser(filteredData[0]))
+            const newusername = filteredData[0].UserName
             const newpasscode = filteredData[0].Password
             
             if(newusername === username && newpasscode === passcode){
