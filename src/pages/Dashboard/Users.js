@@ -27,7 +27,7 @@ export default function Users() {
 
   const newdata = async() => {
         
-    const remoteDBViolation = new PouchDB('http://admin:admin@192.168.0.191:5984/z_users')
+    const remoteDBViolation = new PouchDB('http://admin:admin@192.168.0.192:5984/z_users')
        console.log('remoteDBViolation');
        console.log(remoteDBViolation);
        console.log('remoteDBViolation');
@@ -101,7 +101,7 @@ export default function Users() {
                         <th>ID</th>
                         <th>USERNAME</th>
                         <th>PASSWORD</th>
-                        <th>OFFICER</th>
+                        <th>ROLE</th>
                         <th>CITATION</th>
                     </thead>
 
@@ -110,9 +110,9 @@ export default function Users() {
                             {orders.map((violators, index) => (
                                 <tr key={index}>
                                     <td><span>{violators._id}</span></td>
-                                    <td><span>{violators.Username}</span></td>
+                                    <td><span>{violators.UserName}</span></td>
                                     <td> <span>{violators.Password}</span></td>
-                                    <td> <span>{violators.Officer}</span></td>
+                                    <td> <span>{violators.Role}</span></td>
                                     <td><span>{violators.Citation}</span></td>
                                 </tr>
                             ))}

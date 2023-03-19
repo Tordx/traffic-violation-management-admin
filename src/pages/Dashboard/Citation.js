@@ -5,12 +5,17 @@ import PouchDB from 'pouchdb';
 import '../styles.css';
 import SideBar from '../../components/Sidebar';
 import sidebar_menu from '../../constants/sidebar-menu';
+import Modal from '../../utils/modal';
 
 function Citation () {
     const [search, setSearch] = useState('');
     const [content, setContent] = useState('');
     const [page, setPage] = useState(1);
     const [pagination, setPagination] = useState([]);
+    const [text, setText] = useState('');
+    const [data, setData] = useState('');
+    const [show, setShow] = useState(false);
+    // const [show, setShow] = useState(false);
 
     useEffect(() => {
         setPagination(calculateRange(pagination, 5));
@@ -19,9 +24,19 @@ function Citation () {
     }, [page]);
 
 
+
+    const showModal = () => {
+        setShow(true);
+    };
+
+    const hideModal = () => {
+        setShow(false);
+    };
+
+
     const newdata = async() => {
         
-     const remoteDBViolation = new PouchDB('http://admin:admin@192.168.0.191:5984/z_violation')
+     const remoteDBViolation = new PouchDB('http://admin:admin@192.168.0.192:5984/z_violation')
         console.log('remoteDBViolation');
         console.log(remoteDBViolation);
         var result = await remoteDBViolation.allDocs({
@@ -68,17 +83,18 @@ function Citation () {
         setContent(sliceData(content, new_page, 5));
     }
 
-    const StatusChange = async(violators) => {
+    const StatusChange = async() => {
 
-        const remoteDBViolation = new PouchDB('http://admin:admin@192.168.0.191:5984/z_violation')
+        const remoteDBViolation = new PouchDB('http://admin:admin@192.168.0.192:5984/z_violation')
         console.log('dsdsd')
-        console.log(violators)
+        console.log(data)
         console.log('dsdsd')
-        remoteDBViolation.get(violators._id)
+        remoteDBViolation.get(data._id)
         .then(function(doc) {
             return remoteDBViolation.put({
                 _id: doc._id,
               ...doc,
+              ORnumber : text,
               Status: "Paid"
             });
           }).then(function(response) {
@@ -95,6 +111,21 @@ function Citation () {
    
     return(
         <div className='dashboard-content'>
+            
+            <Modal show={show} handleClose={hideModal}>
+            <text className='text-or-inupt'>ENTER THE OR NUMBER</text>
+            <input
+            type="text"
+            value={text}
+            onChange={e => setText(e.target.value)}
+            className = "my-input"
+            />
+            <div className='dashboard-or-inupt'>
+                <button className='button-or-inupt' onClick={() => {StatusChange()}}>yes</button>
+                <button className='button-or-inupt' onClick={() => {hideModal()}}  >no</button>
+               
+            </div>
+        </Modal>
             <div className='dashboard-container'>
             <SideBar menu = {sidebar_menu}/>
             <div className='dashboard-body'>
@@ -142,7 +173,7 @@ function Citation () {
                                     <td><span>{violators.LicenseNumber}</span></td>
                                     <td><span>{violators.LicensePlate}</span></td>
                                     <td><span>{violators.VehicleType}</span></td>
-                                    <button disabled={violators.Status === "Paid" ? true : false} onClick={() => {StatusChange(violators)}}>
+                                    <button disabled={violators.Status === "Paid" ? true : false} onClick={() => {showModal() , setData(violators) }}>
                                     <td><span>{violators.Status}</span></td>
                                     </button>
                                 </tr>
