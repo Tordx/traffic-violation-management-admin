@@ -55,7 +55,7 @@ export default function AddAccount() {
     <div className="dashboard-container">
     <title></title>
     <SideBar menu={sidebar_menu} />
-    <div className="dashboard-body">
+    <div className='dashboard-body'>
       <DashboardHeader title="Add Account" />
       <div className="dashboard-content-container">
         <div className="dashboard-content-header">

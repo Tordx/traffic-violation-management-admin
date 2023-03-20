@@ -11,14 +11,18 @@ import { useSelector } from 'react-redux';
 function Citation () {
 
     const currentUser = useSelector(state => state.currentUser)
+    console.log('====================================currentUser.user.Role');
+    console.log(currentUser.user.Role);
+    console.log('====================================currentUser.user.Role');
 
     const [search, setSearch] = useState('');
     const [content, setContent] = useState('');
     const [page, setPage] = useState(1);
     const [pagination, setPagination] = useState([]);
-    const [text, setText] = useState('');
+    const [ornumber, setOrNumber] = useState('');
     const [data, setData] = useState('');
     const [show, setShow] = useState(false);
+    const [user, setUser] = useState(currentUser.user.Role);
     // const [show, setShow] = useState(false);
 
     useEffect(() => {
@@ -28,17 +32,19 @@ function Citation () {
     }, [page]);
 
 
-
     const showModal = () => {
         setShow(true);
+
     };
 
     const hideModal = () => {
         setShow(false);
+        setOrNumber('')
     };
 
 
     const newdata = async() => {
+        // setUser(currentUser)
         
      const remoteDBViolation = new PouchDB('http://admin:admin@192.168.0.192:5984/z_violation')
         console.log('remoteDBViolation');
@@ -58,17 +64,21 @@ function Citation () {
             let newFilterData = filteredData.map(item => {
               return item;
             });
+            console.log('====================================');
+            console.log(data);
+            console.log('====================================');
             console.log('====================================currentUser');
-            console.log(currentUser.user.Role);
+            console.log(user);
             console.log('====================================currentUser');
-            if(currentUser.user.Role === "Admin") {
+            if(user === "Admin") {
             let admindata = newFilterData.filter((item) => !item.hasOwnProperty('ORnumber'));
             console.log('====================================admindata');
             console.log(admindata);
             console.log('====================================admindata');
             setContent(admindata)
             }else{
-                setContent(newFilterData)
+                let admindata = newFilterData.filter((item) => item.hasOwnProperty('ORnumber'));
+            setContent(admindata)
 
             }
             
@@ -110,18 +120,34 @@ function Citation () {
             return remoteDBViolation.put({
                 _id: doc._id,
               ...doc,
-              ORnumber : text,
+              ORnumber : ornumber,
               Status: "Paid"
             });
           }).then(function(response) {
             console.log('response')
             console.log(response)
-            setContent(response)
           }).catch(function (err) {
             console.log(err);
           });
-          await newdata()
-          window.location.reload(true)
+          hideModal()
+
+        // await remoteDBViolation.changes({
+        //     since: 'now',
+        //     live: true,
+        //     include_docs: true
+        //   }).on('change', function(change) {
+        //     console.log('====================================change');
+        //     console.log(change);
+        //     console.log('====================================change');
+        //   }).on('complete', function(info) {
+        //     console.log('====================================info');
+        //     console.log(info);
+        //     console.log('====================================info');
+        //   }).on('error', function (err) {
+        //     console.log(err);
+        //   });
+        //   await newdata()
+        //   window.location.reload(true)
     }
 
    
@@ -132,8 +158,8 @@ function Citation () {
             <text className='text-or-inupt'>ENTER THE OR NUMBER</text>
             <input
             type="text"
-            value={text}
-            onChange={e => setText(e.target.value)}
+            value={ornumber}
+            onChange={e => setOrNumber(e.target.value)}
             className = "my-input"
             />
             <div className='dashboard-or-inupt'>
@@ -175,8 +201,8 @@ function Citation () {
                         <th>License Number</th>
                         <th>License Plate</th>
                         <th>Vehicle Type</th>
-                        <th>Status</th>
-                    </thead>
+                       { user === "Admin" ?  <th>Status</th> : <th>EDIT INFO</th> }
+                    </thead> 
 
                     {content.length !== 0 ?
                         <tbody>
@@ -189,9 +215,11 @@ function Citation () {
                                     <td><span>{violators.LicenseNumber}</span></td>
                                     <td><span>{violators.LicensePlate}</span></td>
                                     <td><span>{violators.VehicleType}</span></td>
-                                    <button disabled={violators.Status === "Paid" ? true : false} onClick={() => {showModal() , setData(violators) }}>
+                                   { user === "Admin" ? (<button disabled={violators.Status === "Paid" ? true : false} onClick={() => {showModal() , setData(violators) }}>
                                     <td><span>{violators.Status}</span></td>
-                                    </button>
+                                    </button>) : (<button  href = '/editform' onClick={() => {setData(violators) }}>
+                                     EDIT
+                                    </button>) }
                                 </tr>
                             ))}
                         </tbody>

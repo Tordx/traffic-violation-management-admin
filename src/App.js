@@ -12,6 +12,7 @@ import Announcements from './pages/Dashboard/AddAccount';
 import Login from './pages/Login';
 import Error404 from './pages/error404';
 import AddAccount from './pages/Dashboard/AddAccount';
+import EditInforForm from './components/Form/EditInfoForm';
 
 function App () {
 
@@ -29,6 +30,7 @@ function App () {
                   <Route exact path='/citation' element = {<Citation/>}/>
                   <Route exact path='/users' element = {<Users/>}/>
                   <Route exact path = '/add-users' element = {<AddAccount/>}/>
+                  <Route exact path = '/editform' element = {<EditInforForm/>}/>
                 </Routes>
                 
               </div>     
