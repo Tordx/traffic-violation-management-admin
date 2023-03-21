@@ -205,7 +205,7 @@ const EditInfoForm = ({}) => {
         <div className="FootForm">
           <div className="long-label">
             <label htmlFor="name">Full Name <span className="required">*</span><h6 class="tooltiptext">section required</h6></label>
-            <input placeholder="E.g. Juan Dela Cruz" required type="text" name="fullName" value={fullName} onChange={(e) => setFullName(e.target.value)} />
+            <input className='input-box' placeholder="E.g. Juan Dela Cruz" required type="text" name="fullName" value={fullName} onChange={(e) => setFullName(e.target.value)} />
           </div>
           <div className="HeadForm">
             
@@ -213,11 +213,11 @@ const EditInfoForm = ({}) => {
             <div className="id-generated">
               <div className="id-generated-wraps">
               <label htmlFor="batchCode">Batch code</label>
-              <input disabled placeholder= {batchCode} required type="text" name="batchCode"onChange={(e) => setBatchCode(e.target.value)}/>
+              <input className='input-box' disabled placeholder= {batchCode} required type="text" name="batchCode"onChange={(e) => setBatchCode(e.target.value)}/>
                 </div>
                 <div className="id-generated-wraps">
                   <label htmlFor="userid">User ID</label>
-                  <input disabled placeholder= {userID} required type="text" name="userid" onChange={(e) => setUserID(e.target.value)} />
+                  <input className='input-box' disabled placeholder= {userID} required type="text" name="userid" onChange={(e) => setUserID(e.target.value)} />
                 </div>
                 {/* <div className="id-generated-wraps">
                   <label htmlFor="disabilityCode">disablity code <span className="required">*</span><h6 class="tooltiptext">section required</h6></label>
@@ -234,11 +234,11 @@ const EditInfoForm = ({}) => {
                 </div> */}
               </div>
             </div>
-            <div className="row-label">
+            {/* <div className="row-label">
               <h3>
                 <label>NOTE: user password is set to userid by default, once approved, please change your password immediately.</label>
               </h3>
-              </div>
+              </div> */}
           </div>
           {/* <div className="HeadForm">
             <div className="row-label">
@@ -289,11 +289,11 @@ const EditInfoForm = ({}) => {
                 </div> */}
           <div className="row-label">
             <label htmlFor="specDis">Specificy Disability <span className="required">*</span></label>
-            <input placeholder="E.g. Leg Trauma,…" required  type="text" name="specDis" value={specDis} onChange={(e) => setSpecDis(e.target.value)} />
+            <input className='input-box' placeholder="E.g. Leg Trauma,…" required  type="text" name="specDis" value={specDis} onChange={(e) => setSpecDis(e.target.value)} />
           </div>
           <div className="row-label">
             <label htmlFor="causeOfDisability">Cause of Disability <span className="required">*</span></label>
-            <input placeholder="e.g. Accident,…" required type="text" name="causeOfDisability" value={causeOfDisability} onChange={(e) => setCauseOfDisability(e.target.value)} />
+            <input className='input-box' placeholder="e.g. Accident,…" required type="text" name="causeOfDisability" value={causeOfDisability} onChange={(e) => setCauseOfDisability(e.target.value)} />
           </div>
           </div>
           {/* <div className="long-label">
@@ -313,7 +313,7 @@ const EditInfoForm = ({}) => {
           <div className="HeadForm">
             <div className="row-label">
               <label htmlFor="occupation">Occupation <span className="required">*</span></label>
-              <input placeholder="E.g. Occupation,…" required  type="text" name="Occupation" value={occupation} onChange={(e) => setOccupation(e.target.value)} />
+              <input className='input-box' placeholder="E.g. Occupation,…" required  type="text" name="Occupation" value={occupation} onChange={(e) => setOccupation(e.target.value)} />
             </div>
             {/* <div className="row-label">
               <label htmlFor="status">Status of Employment <span className="required">*</span></label>
@@ -337,98 +337,98 @@ const EditInfoForm = ({}) => {
           <div className="HeadForm">
             <div className="row-label">
               <label htmlFor="sss_id">SSS ID</label>
-              <input type="text" name="sss_id" value={sss} onChange={(e) => setSSS(e.target.value)} />
+              <input className='input-box' type="text" name="sss_id" value={sss} onChange={(e) => setSSS(e.target.value)} />
             </div>
             <div className="row-label">
               <label htmlFor="gsis">GSIS ID</label>
-              <input type="text" name="gsis" value={gsis} onChange={(e) => setGSIS(e.target.value)} />
+              <input className='input-box' type="text" name="gsis" value={gsis} onChange={(e) => setGSIS(e.target.value)} />
               </div>
             <div className="row-label">
               <label htmlFor="pagibig">PAG-IBIG ID</label>
-              <input type="text" name="pagibig" value={pagibig} onChange={(e) => setPagibig(e.target.value)} />
+              <input className='input-box' type="text" name="pagibig" value={pagibig} onChange={(e) => setPagibig(e.target.value)} />
             </div>
             <div className="row-label">
               <label htmlFor="psn">PSN ID</label>
-              <input type="text" name="psn" value={psn} onChange={(e) => setPSN(e.target.value)} />
+              <input className='input-box' type="text" name="psn" value={psn} onChange={(e) => setPSN(e.target.value)} />
             </div>
           </div>
           <div className="HeadForm">
             <div className="row-label">
               <label htmlFor="philhealth">PhilHealth ID</label>
-              <input required  type="text" name="philhealth" value={philhealth} onChange={(e) => setPhilHealth(e.target.value)} />
+              <input className='input-box' required  type="text" name="philhealth" value={philhealth} onChange={(e) => setPhilHealth(e.target.value)} />
             </div>
             <div className="row-label">
               <label htmlFor="license">Driver's License ID</label>
-              <input type="text" name="license" value={dl} onChange={(e) => setDL(e.target.value)} />
+              <input className='input-box' type="text" name="license" value={dl} onChange={(e) => setDL(e.target.value)} />
             </div>
             <div className="row-label">
               <label htmlFor="others">Others</label>
-              <input type="text" name="others" value={others} onChange={(e) => setOthers(e.target.value)} />
+              <input className='input-box'type="text" name="others" value={others} onChange={(e) => setOthers(e.target.value)} />
             </div>
           </div>
           <p>FAMILY BACKGROUND</p>
           <div className="long-label">
             <label htmlFor="father">FATHER'S NAME</label>
-            <input type="text" name="father" value={father} onChange={(e) => setFather(e.target.value)} />
+            <input className='input-box' type="text" name="father" value={father} onChange={(e) => setFather(e.target.value)} />
           </div>
           <div className="long-label">
             <label htmlFor="mother">MOTHER'S NAME</label>
-            <input type="text" name="mother" value={mother} onChange={(e) => setMother(e.target.value)} />
+            <input className='input-box' type="text" name="mother" value={mother} onChange={(e) => setMother(e.target.value)} />
           </div>
           <div className="long-label">
             <label htmlFor="guardian">GUARDIAN</label>
-            <input type="text" name="guardian" value={guardian} onChange={(e) => setGuardian(e.target.value)} />
+            <input className='input-box' type="text" name="guardian" value={guardian} onChange={(e) => setGuardian(e.target.value)} />
           </div>
           <div className="long-label">
             <label htmlFor="emergency number">EMERGENCY CONTACT PERSON</label>
-            <input type="text" name="emergency number" value={emergencyContactPerson} onChange={(e) => setEmergencyContactPerson(e.target.value)} />
+            <input className='input-box' type="text" name="emergency number" value={emergencyContactPerson} onChange={(e) => setEmergencyContactPerson(e.target.value)} />
           </div>
           <div className="long-label">
             <label htmlFor="emergency number">EMERGENCY CONTACT NUMBER</label>
-            <input type="text" name="emergency number" value={emergencyContactNumber} onChange={(e) => setEmergencyContactNumber(e.target.value)} />
+            <input className='input-box' type="text" name="emergency number" value={emergencyContactNumber} onChange={(e) => setEmergencyContactNumber(e.target.value)} />
           </div>
           <p>OTHER RELEVANT INFORMATION</p>
           <div className="long-label">
             <label htmlFor="physician">CERTIFYING PHYSICIAN</label>
-            <input type="text" name="physician" value={physician} onChange={(e) => setPhysician(e.target.value)} />
+            <input className='input-box' type="text" name="physician" value={physician} onChange={(e) => setPhysician(e.target.value)} />
           </div>
           <div className="long-label">
               <label htmlFor="LicenseNumber">LICENSE NUMBER</label>
-              <input type="text" name="LicenseNumber" value={license} onChange={(e) => setLicense(e.target.value)} />
+              <input className='input-box' type="text" name="LicenseNumber" value={license} onChange={(e) => setLicense(e.target.value)} />
           </div>
           <div className="HeadForm">
             <div className="row-label">
               <label htmlFor="ProcessingOfficer">PROCESSING OFFICER</label>
-              <input  type="text" name="ProcessingOfficer" value={processingOfficer} onChange={(e) => setProcessingOfficer(e.target.value)} />
+              <input className='input-box'  type="text" name="ProcessingOfficer" value={processingOfficer} onChange={(e) => setProcessingOfficer(e.target.value)} />
             </div>
             <div className="row-label">
               <label htmlFor="approvingOfficer">APPROVING OFFICER</label>
-              <input  type="text" name="approvingOfficer" value={approvingOfficer} onChange={(e) => setApprovingOfficer(e.target.value)} />
+              <input className='input-box'  type="text" name="approvingOfficer" value={approvingOfficer} onChange={(e) => setApprovingOfficer(e.target.value)} />
             </div>
             <div className="row-label">
               <label htmlFor="encoder">ENCODER</label>
-              <input type="text" name="encoder" value={encoder} onChange={(e) => setEncoder(e.target.value)} />
+              <input className='input-box' type="text" name="encoder" value={encoder} onChange={(e) => setEncoder(e.target.value)} />
             </div>
           </div>
           
-          <label htmlFor="encoder">UPLOAD FILES <span className="required">*</span><h6>CERTIFICATE OF INDIGENCY, BIRTH CERTIFICATE, MEDICAL CERTIFICATE OR CERTIFICATE OF PHYSICIAN</h6></label>
+          {/* <label htmlFor="encoder">UPLOAD FILES <span className="required">*</span><h6>CERTIFICATE OF INDIGENCY, BIRTH CERTIFICATE, MEDICAL CERTIFICATE OR CERTIFICATE OF PHYSICIAN</h6></label> */}
           <div className="upload-file">
           <div className="addPortrait">
             <label htmlFor="img">
               {/* <img src={addPortrait} alt="Add User Portrait" width={50} height ={50} draggable = {false} /> */}
-              <span>Add User Portrait <span className="required">*</span></span>
+              {/* <span>Add User Portrait <span className="required">*</span></span> */}
             </label>
-            <input required style={{ display: "none" }} type="file" id="img" onChange={(e) => setImage(e.target.files[0])} accept=".png, .jpg, .jpeg"/>
+            <input className='input-box' required style={{ display: "none" }} type="file" id="img" onChange={(e) => setImage(e.target.files[0])} accept=".png, .jpg, .jpeg"/>
           </div>
           <div className="addPortrait">
             <label htmlFor="file">
               {/* <img src={DocUpload} alt="Add User Portrait" width={50} height ={50} draggable = {false} /> */}
-              <span>Upload files <span className="required">*</span></span>
+              {/* <span>Upload files <span className="required">*</span></span> */}
             </label>
-            <input required style={{ display: "none" }}  type="file" id="file" onChange={(e) => setFile(e.target.files[0])} accept=".pdf, .xlsx, .csv, .txt, .doc, .xls, .png, .jpeg, .jpg, .docx, .odt"/>
+            <input className='input-box' required style={{ display: "none" }}  type="file" id="file" onChange={(e) => setFile(e.target.files[0])} accept=".pdf, .xlsx, .csv, .txt, .doc, .xls, .png, .jpeg, .jpg, .docx, .odt"/>
           </div>
           </div>
-          <button disabled={loading} onClick = {handleSubmit}>ADD USER</button>
+          <button className='input-box' disabled={loading} onClick = {handleSubmit}>ADD USER</button>
           </div>
           {loading && "Uploading and compressing the image please wait..."}
           {err && <span>Something went wrong, if error persist contact your developer</span>}
