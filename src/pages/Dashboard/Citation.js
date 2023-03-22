@@ -7,13 +7,18 @@ import SideBar from '../../components/Sidebar';
 import sidebar_menu from '../../constants/sidebar-menu';
 import Modal from '../../utils/modal';
 import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import allActions from '../ReduxAction/indexAction';
+import { useNavigate } from 'react-router-dom';
 
 function Citation () {
 
+    const remoteDBViolation = new PouchDB('http://admin:admin@192.168.0.192:5984/z_violation')
+
     const currentUser = useSelector(state => state.currentUser)
-    console.log('====================================currentUser.user.Role');
-    console.log(currentUser.user.Role);
-    console.log('====================================currentUser.user.Role');
+    const dispatch = useDispatch()
+
+    const navigate = useNavigate()
 
     const [search, setSearch] = useState('');
     const [content, setContent] = useState('');
@@ -23,8 +28,9 @@ function Citation () {
     const [data, setData] = useState('');
     const [show, setShow] = useState(false);
     const [user, setUser] = useState(currentUser.user.Role);
-    // const [show, setShow] = useState(false);
 
+    // const [show, setShow] = useState(false);
+    
     useEffect(() => {
         setPagination(calculateRange(pagination, 5));
         setContent(sliceData(pagination, page, 5));
@@ -44,11 +50,6 @@ function Citation () {
 
 
     const newdata = async() => {
-        // setUser(currentUser)
-        
-     const remoteDBViolation = new PouchDB('http://admin:admin@192.168.0.192:5984/z_violation')
-        console.log('remoteDBViolation');
-        console.log(remoteDBViolation);
         var result = await remoteDBViolation.allDocs({
             include_docs: true,
             attachments: true
@@ -64,27 +65,55 @@ function Citation () {
             let newFilterData = filteredData.map(item => {
               return item;
             });
-            console.log('====================================');
-            console.log(data);
-            console.log('====================================');
-            console.log('====================================currentUser');
-            console.log(user);
-            console.log('====================================currentUser');
             if(user === "Admin") {
             let admindata = newFilterData.filter((item) => !item.hasOwnProperty('ORnumber'));
-            console.log('====================================admindata');
-            console.log(admindata);
-            console.log('====================================admindata');
             setContent(admindata)
             }else{
                 let admindata = newFilterData.filter((item) => item.hasOwnProperty('ORnumber'));
             setContent(admindata)
 
             }
+
+            await remoteDBViolation.changes({
+                        since: 'now',
+                        live: true,
+                        include_docs: true
+                      }).on('change',async function(change) {
+                        var result = await remoteDBViolation.allDocs({
+                            include_docs: true,
+                            attachments: true
+                          });
+                          if(result.rows){
+                                let modifiedArr = result.rows.map(function(item){
+                                return item.doc
+                          });
+                                let filteredData = modifiedArr.filter(item => {
+                                return item.Status;
+                          });
+                          if (filteredData) {
+                            let newFilterData = filteredData.map(item => {
+                              return item;
+                            });
+                            if(user === "Admin") {
+                            let admindata = newFilterData.filter((item) => !item.hasOwnProperty('ORnumber'));
+                            setContent(admindata)
+                            }else{
+                                let admindata = newFilterData.filter((item) => item.hasOwnProperty('ORnumber'));
+                            setContent(admindata)
+                
+                            } 
+                            
+                          }
+                    }
+                    }).on('complete', function(info) {
+                      }).on('error', function (err) {
+                        console.log(err);
+                      });
             
           }
     }
 }
+
 
     // Search
     const __handleSearch = (event) => {
@@ -130,24 +159,14 @@ function Citation () {
             console.log(err);
           });
           hideModal()
+    }
 
-        // await remoteDBViolation.changes({
-        //     since: 'now',
-        //     live: true,
-        //     include_docs: true
-        //   }).on('change', function(change) {
-        //     console.log('====================================change');
-        //     console.log(change);
-        //     console.log('====================================change');
-        //   }).on('complete', function(info) {
-        //     console.log('====================================info');
-        //     console.log(info);
-        //     console.log('====================================info');
-        //   }).on('error', function (err) {
-        //     console.log(err);
-        //   });
-        //   await newdata()
-        //   window.location.reload(true)
+    const toedit = (violators) => {
+        console.log('====================================violators');
+        console.log(violators);
+        console.log('====================================violators');
+        dispatch(allActions.userAction.setUser(violators)) 
+        navigate('/editform')
     }
 
    
@@ -179,7 +198,6 @@ function Citation () {
                 <div className='dashboard-content-header'>
                     <h2>Citation List</h2>
                     <div>
-                    <button onClick = {newdata}>refresh</button>
                     <div className='dashboard-content-search'>'
                     
                         <input
@@ -217,7 +235,7 @@ function Citation () {
                                     <td><span>{violators.VehicleType}</span></td>
                                    { user === "Admin" ? (<button disabled={violators.Status === "Paid" ? true : false} onClick={() => {showModal() , setData(violators) }}>
                                     <td><span>{violators.Status}</span></td>
-                                    </button>) : (<button  href = '/editform' onClick={() => {setData(violators) }}>
+                                    </button>) : (<button  href = '/editform' onClick={() => toedit(violators) }>
                                      EDIT
                                     </button>) }
                                 </tr>
