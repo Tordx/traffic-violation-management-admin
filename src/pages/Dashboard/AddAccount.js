@@ -19,7 +19,7 @@ export default function AddAccount() {
   if(navigate){return <Navigate to= "/users"/>}
 
 
-  const remoteDBTrafficAccountAdmin = new PouchDB('http://admin:admin@192.168.0.192:5984/z_users')
+  const remoteDBTrafficAccountAdmin = new PouchDB('https://root:root@database.vidarsson.online/z_user')
 
   async function handleSubmit(event) {
     event.preventDefault();

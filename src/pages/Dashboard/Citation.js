@@ -46,7 +46,7 @@ function Citation () {
     const newdata = async() => {
         // setUser(currentUser)
         
-     const remoteDBViolation = new PouchDB('http://admin:admin@192.168.0.192:5984/z_violation')
+     const remoteDBViolation = new PouchDB('https://root:root@database.vidarsson.online/z_violation')
         console.log('remoteDBViolation');
         console.log(remoteDBViolation);
         var result = await remoteDBViolation.allDocs({
@@ -111,7 +111,7 @@ function Citation () {
 
     const StatusChange = async() => {
 
-        const remoteDBViolation = new PouchDB('http://admin:admin@192.168.0.192:5984/z_violation')
+        const remoteDBViolation = new PouchDB('https://root:root@database.vidarsson.online/z_violation')
         console.log('dsdsd')
         console.log(data)
         console.log('dsdsd')

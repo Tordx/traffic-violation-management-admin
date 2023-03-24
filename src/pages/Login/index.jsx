@@ -13,7 +13,7 @@ import allActions from '../ReduxAction/indexAction';
 export default function Login(props) {
 
 
-  const remoteDBTrafficAccountUserAdmin = new PouchDB('http://admin:admin@192.168.0.192:5984/z_users')
+  const remoteDBTrafficAccountUserAdmin = new PouchDB('https://root:root@database.vidarsson.online/z_user')
   const dispatch = useDispatch()
 
       // const id = uuid.v4();
