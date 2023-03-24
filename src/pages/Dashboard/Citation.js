@@ -13,7 +13,7 @@ import { useNavigate } from 'react-router-dom';
 
 function Citation () {
 
-    const remoteDBViolation = new PouchDB('http://admin:admin@192.168.0.192:5984/z_violation')
+    const remoteDBViolation = new PouchDB('https://root:root@database.vidarsson.online/z_violation')
 
     const currentUser = useSelector(state => state.currentUser)
     const dispatch = useDispatch()
