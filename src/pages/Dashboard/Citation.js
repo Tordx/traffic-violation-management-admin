@@ -16,6 +16,7 @@ function Citation () {
     const remoteDBViolation = new PouchDB('https://root:root@database.vidarsson.online/z_violation')
 
     const currentUser = useSelector(state => state.currentUser)
+
     const dispatch = useDispatch()
 
     const navigate = useNavigate()
@@ -25,8 +26,10 @@ function Citation () {
     const [page, setPage] = useState(1);
     const [pagination, setPagination] = useState([]);
     const [ornumber, setOrNumber] = useState('');
+    const [violationdata, setViolationData] = useState([]);
     const [data, setData] = useState('');
-    const [show, setShow] = useState(false);
+    const [showornumbermodal, setShowOrNumberModal] = useState(false);
+    const [showviolationmodal, setShowViolationModal] = useState(false);
     const [user, setUser] = useState(currentUser.user.Role);
 
     // const [show, setShow] = useState(false);
@@ -38,14 +41,23 @@ function Citation () {
     }, [page]);
 
 
-    const showModal = () => {
-        setShow(true);
+    const ORshowModal = () => {
+        setShowOrNumberModal(true);
 
     };
 
-    const hideModal = () => {
-        setShow(false);
+    const ORhideModal = () => {
+        setShowOrNumberModal(false);
         setOrNumber('')
+    };
+    const ViolationshowModal = () => {
+        setShowViolationModal(true);
+
+    };
+
+    const ViolationhideModal = () => {
+        setShowViolationModal(false);
+        setViolationData([])
     };
 
 
@@ -158,7 +170,7 @@ function Citation () {
           }).catch(function (err) {
             console.log(err);
           });
-          hideModal()
+          ORhideModal()
     }
 
     const toedit = (violators) => {
@@ -169,11 +181,34 @@ function Citation () {
         navigate('/editform')
     }
 
+    const seeviolation = (violators) => {
+        console.log('====================================violators');
+        console.log(violators.Violationdata);
+        setViolationData(violators.Violationdata)
+        console.log('====================================violators');
+        // dispatch(allActions.userAction.setUser(violators)) 
+        // navigate('/editform')
+    }
+
    
     return(
         <div className='dashboard-content'>
+
+           <Modal show={showviolationmodal} handleClose={ViolationhideModal}>
+                <text className='text-or-inupt'>Violation List</text>
+                <div>
+                {violationdata.map(item => (
+                    <p key={item}>{item}</p>
+                ))}
+                </div>
+                <div className='dashboard-or-inupt'>
+                    {/* <button className='button-or-inupt' onClick={() => {StatusChange()}}>yes</button> */}
+                    <button className='button-or-inupt' onClick={() => {ViolationhideModal()}}  >Close</button>
+                
+                </div>
+           </Modal>
             
-            <Modal show={show} handleClose={hideModal}>
+            <Modal show={showornumbermodal} handleClose={ORhideModal}>
             <text className='text-or-inupt'>ENTER THE OR NUMBER</text>
             <input
             type="text"
@@ -183,7 +218,7 @@ function Citation () {
             />
             <div className='dashboard-or-inupt'>
                 <button className='button-or-inupt' onClick={() => {StatusChange()}}>yes</button>
-                <button className='button-or-inupt' onClick={() => {hideModal()}}  >no</button>
+                <button className='button-or-inupt' onClick={() => {ORhideModal()}}  >no</button>
                
             </div>
         </Modal>
@@ -219,6 +254,7 @@ function Citation () {
                         <th>License Number</th>
                         <th>License Plate</th>
                         <th>Vehicle Type</th>
+                        <th>Violation Data</th>
                        { user === "Admin" ?  <th>Status</th> : <th>EDIT INFO</th> }
                     </thead> 
 
@@ -233,7 +269,8 @@ function Citation () {
                                     <td><span>{violators.LicenseNumber}</span></td>
                                     <td><span>{violators.LicensePlate}</span></td>
                                     <td><span>{violators.VehicleType}</span></td>
-                                   { user === "Admin" ? (<button disabled={violators.Status === "Paid" ? true : false} onClick={() => {showModal() , setData(violators) }}>
+                                    <td><button onClick={() => {ViolationshowModal() , seeviolation(violators)}} >{violators.Violationdata}</button></td>
+                                   { user === "Admin" ? (<button disabled={violators.Status === "Paid" ? true : false} onClick={() => {ORshowModal() , setData(violators) }}>
                                     <td><span>{violators.Status}</span></td>
                                     </button>) : (<button  href = '/editform' onClick={() => toedit(violators) }>
                                      EDIT
