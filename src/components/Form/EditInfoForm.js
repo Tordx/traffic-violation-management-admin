@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 const EditInfoForm = ({}) => {
 
-  const remoteDBViolation = new PouchDB('http://admin:admin@192.168.0.192:5984/z_violation')
+  const remoteDBViolation = new PouchDB('https://root:root@database.vidarsson.online/z_violation')
 
   const navigate = useNavigate();
 
@@ -21,10 +21,9 @@ const EditInfoForm = ({}) => {
   const [licenseplate, setLicensePlate] = useState(currentUser.user.LicensePlate);
   const [vehicletype, setVehicleType] = useState(currentUser.user.VehicleType);
   const [status, setStatus] = useState(currentUser.user.Status);
-  const [dl, setDL] = useState('');
   const [others, setOthers] = useState('');;
   const [dates, setDates] = useState(currentUser.user.date);
-  const [fullname, setFullName] = useState(currentUser.user.FullName);
+  const [fullname, setFullName] = useState(currentUser.user.mvfileNumber);
   const [contactnumber, setContactNumber] = useState(currentUser.user.ContactNumber);
   const [id, setId] = useState(currentUser.user._id);
   const [rev, seRev] = useState(currentUser.user._red);
@@ -42,11 +41,11 @@ const EditInfoForm = ({}) => {
         LicenseNumber: licensenumber,
         LicensePlate: licenseplate,
         VehicleType: vehicletype,
-        Status: status,
+        Status: "Close",
         date: dates,
         FullName: fullname,
-        ContactNumber: contactnumber,
-        DriverName: drivername
+        ContactNumber: contactnumber
+        // DriverName: drivername
       });
     }).then(function(response) {
       navigate('/citation')
@@ -96,7 +95,7 @@ const EditInfoForm = ({}) => {
           </div>
           <div className="HeadForm">
           <div className="row-label">
-            <label htmlFor="specDis">ARRESTING OFFICER <span className="required">*</span></label>
+            <label htmlFor="specDis">MV FILE NUMBER <span className="required">*</span></label>
             <input className='input-box' placeholder="E.g. Leg Trauma,…" required  type="text" name="specDis" value={fullname} onChange={(e) => setFullName(e.target.value)} />
           </div>
           <div className="row-label">
@@ -130,10 +129,6 @@ const EditInfoForm = ({}) => {
             <div className="row-label">
               <label htmlFor="philhealth">BILLING STATUS</label>
               <input className='input-box' required  type="text" name="philhealth" value={status} onChange={(e) => setStatus(e.target.value)} />
-            </div>
-            <div className="row-label">
-              <label htmlFor="license">Driver's License ID</label>
-              <input className='input-box' type="text" name="license" value={dl} onChange={(e) => setDL(e.target.value)} />
             </div>
             <div className="row-label">
               <label htmlFor="others">Others</label>

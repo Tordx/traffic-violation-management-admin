@@ -5,10 +5,16 @@ import settings from '../assets/icons/settings.png';
 
 const sidebar_menu = [
     {
-        id: 2,
+        id: 1,
         icon: citation,
         path: '/citation',
         title: 'Citations',
+    },
+    {
+        id: 2,
+        icon: DashboardIcon,
+        path: '/history',
+        title: 'History',
     },
     {
         id: 3,
