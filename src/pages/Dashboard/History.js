@@ -134,15 +134,15 @@ function History () {
         setSearch(event.target.value);
         if (event.target.value) {
             let search_results = content.filter((item) =>
-                (new RegExp(search, 'i').test(item.refNum) ||
-                new RegExp(search, 'i').test(item.DriverName) ||
-                new RegExp(search, 'i').test(item.ContactNumber)
+                (new RegExp(event.target.value, 'i').test(item.refNum) ||
+                new RegExp(event.target.value, 'i').test(item.DriverName) ||
+                new RegExp(event.target.value, 'i').test(item.ContactNumber)
                 )
             );
             setContent(search_results);
         }
         else if (event.target.value == '') {
-            __handleSearch()
+            newdata()
         }
     };
 
@@ -180,7 +180,7 @@ function History () {
         console.log(violators);
         console.log('====================================violators');
         dispatch(allActions.userAction.setUser(violators)) 
-        navigate('/editform')
+        navigate('/viewform')
     }
 
     const seeviolation = (violators) => {
@@ -249,15 +249,15 @@ function History () {
 
                 <table>
                     <thead>
-                        <th>ID</th>
-                        <th>DRIVER</th>
+                        <th>REF Number</th>
+                        <th>Driver Nname</th>
                         <th>Driver Address</th>
                         <th>Contact Number</th>
                         <th>License Number</th>
                         <th>License Plate</th>
                         <th>Vehicle Type</th>
                         <th>Violation Data</th>
-                       { user === "Admin" ?  <th>Status</th> : <th>EDIT INFO</th> }
+                        <th>View Info</th> 
                     </thead> 
 
                     {content.length !== 0 ?
@@ -272,11 +272,9 @@ function History () {
                                     <td><span>{violators.LicensePlate}</span></td>
                                     <td><span>{violators.VehicleType}</span></td>
                                     <td><button onClick={() => {ViolationshowModal() , seeviolation(violators)}} >{violators.Violationdata}</button></td>
-                                   { user === "Admin" ? (<button disabled={violators.Status === "Paid" ? true : false} onClick={() => {ORshowModal() , setData(violators) }}>
-                                    <td><span>{violators.Status}</span></td>
-                                    </button>) : (<button  href = '/editform' onClick={() => toedit(violators) }>
-                                     EDIT
-                                    </button>) }
+                                    <button onClick={() => toedit(violators) }>
+                                     View
+                                    </button>
                                 </tr>
                             ))}
                         </tbody>

@@ -14,6 +14,7 @@ import Error404 from './pages/error404';
 import AddAccount from './pages/Dashboard/AddAccount';
 import EditInforForm from './components/Form/EditInfoForm';
 import History from './pages/Dashboard/History';
+import ViewInfoForm from './components/Form/ViewInfoForm';
 
 function App () {
 
@@ -33,6 +34,7 @@ function App () {
                   <Route exact path='/users' element = {<Users/>}/>
                   <Route exact path = '/add-users' element = {<AddAccount/>}/>
                   <Route exact path = '/editform' element = {<EditInforForm/>}/>
+                  <Route exact path = '/viewform' element = {<ViewInfoForm/>}/>
                 </Routes>
                 
               </div>     
