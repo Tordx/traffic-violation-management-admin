@@ -33,11 +33,13 @@ function History () {
     const [user, setUser] = useState(currentUser.user.Role);
 
     // const [show, setShow] = useState(false);
+    useEffect(() => {
+        newdata()
+    }, []);
     
     useEffect(() => {
         setPagination(calculateRange(pagination, 5));
         setContent(sliceData(pagination, page, 5));
-        newdata()
     }, [page]);
 
 
@@ -79,52 +81,8 @@ function History () {
             });
 
              setContent(newFilterData)
-            // if(user === "Admin") {
-            // let admindata = newFilterData.filter((item) => !item.hasOwnProperty('ORnumber'));
-            // setContent(admindata)
-            // }else{
-            //     let admindata = newFilterData.filter((item) => item.hasOwnProperty('ORnumber'));
-            // setContent(admindata)
-
+    
             }
-
-            // await remoteDBViolation.changes({
-            //             since: 'now',
-            //             live: true,
-            //             include_docs: true
-            //           }).on('change',async function(change) {
-            //             var result = await remoteDBViolation.allDocs({
-            //                 include_docs: true,
-            //                 attachments: true
-            //               });
-            //               if(result.rows){
-            //                     let modifiedArr = result.rows.map(function(item){
-            //                     return item.doc
-            //               });
-            //                     let filteredData = modifiedArr.filter(item => {
-            //                     return item.Status;
-            //               });
-            //               if (filteredData) {
-            //                 let newFilterData = filteredData.map(item => {
-            //                   return item;
-            //                 });
-            //                 if(user === "Admin") {
-            //                 let admindata = newFilterData.filter((item) => !item.hasOwnProperty('ORnumber'));
-            //                 setContent(admindata)
-            //                 }else{
-            //                     let admindata = newFilterData.filter((item) => item.hasOwnProperty('ORnumber'));
-            //                 setContent(admindata)
-                
-            //                 } 
-                            
-            //               }
-            //         }
-            //         }).on('complete', function(info) {
-            //           }).on('error', function (err) {
-            //             console.log(err);
-            //           });
-            
-          
     }
 }
 
