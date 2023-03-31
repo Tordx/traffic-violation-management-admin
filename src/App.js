@@ -13,7 +13,6 @@ import Login from './pages/Login';
 import Error404 from './pages/error404';
 import AddAccount from './pages/Dashboard/AddAccount';
 import EditInforForm from './components/Form/EditInfoForm';
-
 function App () {
 
   const [isLoggedIn, setIsLoggedIn] = useState(true)
