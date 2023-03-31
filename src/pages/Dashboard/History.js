@@ -8,10 +8,10 @@ import sidebar_menu from '../../constants/sidebar-menu';
 import Modal from '../../utils/modal';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import allActions from '../../ReduxAction/indexAction';
+import allActions from '../ReduxAction/indexAction';
 import { useNavigate } from 'react-router-dom';
 
-function Citation () {
+function History () {
 
     const remoteDBViolation = new PouchDB('https://root:root@database.vidarsson.online/z_violation')
 
@@ -30,7 +30,7 @@ function Citation () {
     const [data, setData] = useState('');
     const [showornumbermodal, setShowOrNumberModal] = useState(false);
     const [showviolationmodal, setShowViolationModal] = useState(false);
-    const [user, setUser] = useState(currentUser.user?.Role);
+    const [user, setUser] = useState(currentUser.user.Role);
 
     // const [show, setShow] = useState(false);
     useEffect(() => {
@@ -73,21 +73,16 @@ function Citation () {
                 return item.doc
           });
                 let filteredData = modifiedArr.filter(item => {
-                return item.Status;
+                return item.Status === "Close"
           });
           if (filteredData) {
             let newFilterData = filteredData.map(item => {
               return item;
             });
-            if(user === "Admin") {
-            let admindata = newFilterData.filter((item) => item.Status === "Unpaid");
-            setContent(admindata)
-            }else{
-                let admindata = newFilterData.filter((item) => item.Status === "Paid");
-            setContent(admindata)
 
+             setContent(newFilterData)
+    
             }
-          }
     }
 }
 
@@ -130,7 +125,8 @@ function Citation () {
               Status: "Paid"
             });
           }).then(function(response) {
-            newdata()
+            console.log('response')
+            console.log(response)
           }).catch(function (err) {
             console.log(err);
           });
@@ -142,7 +138,7 @@ function Citation () {
         console.log(violators);
         console.log('====================================violators');
         dispatch(allActions.userAction.setUser(violators)) 
-        navigate('/editform')
+        navigate('/viewform')
     }
 
     const seeviolation = (violators) => {
@@ -195,8 +191,7 @@ function Citation () {
             
             <div className='dashboard-content-container'>
                 <div className='dashboard-content-header'>
-                    <h2>Citation List</h2>
-                    {/* <button onClick={newdata}>Refresh</button> */}
+                    <h2>History List</h2>
                     <div>
                     <div className='dashboard-content-search'>'
                     
@@ -212,15 +207,15 @@ function Citation () {
 
                 <table>
                     <thead>
-                        <th>ID</th>
-                        <th>DRIVER</th>
+                        <th>REF Number</th>
+                        <th>Driver Nname</th>
                         <th>Driver Address</th>
                         <th>Contact Number</th>
                         <th>License Number</th>
                         <th>License Plate</th>
                         <th>Vehicle Type</th>
                         <th>Violation Data</th>
-                       { user === "Admin" ?  <th>Status</th> : <th>EDIT INFO</th> }
+                        <th>View Info</th> 
                     </thead> 
 
                     {content.length !== 0 ?
@@ -235,11 +230,9 @@ function Citation () {
                                     <td><span>{violators.LicensePlate}</span></td>
                                     <td><span>{violators.VehicleType}</span></td>
                                     <td><button onClick={() => {ViolationshowModal() , seeviolation(violators)}} >{violators.Violationdata}</button></td>
-                                   { user === "Admin" ? (<button disabled={violators.Status === "Paid" ? true : false} onClick={() => {ORshowModal() , setData(violators) }}>
-                                    <td><span>{violators.Status}</span></td>
-                                    </button>) : (<button  href = '/editform' onClick={() => toedit(violators) }>
-                                     EDIT
-                                    </button>) }
+                                    <button onClick={() => toedit(violators) }>
+                                     View
+                                    </button>
                                 </tr>
                             ))}
                         </tbody>
@@ -266,4 +259,4 @@ function Citation () {
     )
 }
 
-export default Citation;
+export default History;

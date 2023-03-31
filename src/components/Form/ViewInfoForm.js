@@ -5,7 +5,7 @@ import PouchDB from 'pouchdb';
 import { useNavigate } from "react-router-dom";
 
 
-const EditInfoForm = ({}) => {
+const ViewInfoForm = ({}) => {
 
   const remoteDBViolation = new PouchDB('https://root:root@database.vidarsson.online/z_violation')
 
@@ -30,32 +30,7 @@ const EditInfoForm = ({}) => {
   const [image, setImage] = useState(''); // not yet implemented as image upload was set as file for default in the recent update.
 
   const handleSubmit = async(e) => {
-
-    await remoteDBViolation.get(currentUser.user._id).then(function(doc) {
-      return remoteDBViolation.put({
-        _id: id,
-        _rev: rev,
-        ...doc,
-        refNum: refnum,
-        DriverAddress: driveraddress,
-        LicenseNumber: licensenumber,
-        LicensePlate: licenseplate,
-        VehicleType: vehicletype,
-        Status: "Close",
-        date: dates,
-        FullName: fullname,
-        ContactNumber: contactnumber
-        // DriverName: drivername
-      });
-    }).then(function(response) {
-      navigate('/citation')
-      console.log('====================================response');
-      console.log(response);
-      console.log('====================================response');
-    }).catch(function (err) {
-      console.log(err);
-    });
-
+      navigate('/history')
   };
 
    return (
@@ -72,11 +47,11 @@ const EditInfoForm = ({}) => {
     <div className="LabelWrapper">
       <div className="formlogo">
         </div>
-        <h1 className="pageTitle">TRANSACTION FORM</h1>
+        <h1 className="pageTitle">TRANSACTION INFO</h1>
         <div className="FootForm">
           <div className="long-label">
             <label htmlFor="name">Driver Name <span className="required">*</span></label>
-            <input className='input-box' placeholder="E.g. Juan Dela Cruz" required type="text" name="fullName" value={drivername} onChange={(e) => setDrivername(e.target.value)} />
+            <input className='input-box'disabled placeholder="E.g. Juan Dela Cruz" required type="text" name="fullName" value={drivername} onChange={(e) => setDrivername(e.target.value)} />
           </div>
           <div className="HeadForm">
             
@@ -96,11 +71,11 @@ const EditInfoForm = ({}) => {
           <div className="HeadForm">
           <div className="row-label">
             <label htmlFor="specDis">MV FILE NUMBER <span className="required">*</span></label>
-            <input className='input-box' placeholder="E.g. Leg Trauma,…" required  type="text" name="specDis" value={fullname} onChange={(e) => setFullName(e.target.value)} />
+            <input className='input-box'disabled placeholder="E.g. Leg Trauma,…" required  type="text" name="specDis" value={fullname} onChange={(e) => setFullName(e.target.value)} />
           </div>
           <div className="row-label">
             <label htmlFor="causeOfDisability">DRIVER ADDRESS <span className="required">*</span></label>
-            <input className='input-box' placeholder="e.g. Accident,…" required type="text" name="causeOfDisability" value={driveraddress} onChange={(e) => setDriverAddress(e.target.value)} />
+            <input className='input-box'disabled placeholder="e.g. Accident,…" required type="text" name="causeOfDisability" value={driveraddress} onChange={(e) => setDriverAddress(e.target.value)} />
           </div>
           </div>
         </div>
@@ -108,31 +83,31 @@ const EditInfoForm = ({}) => {
           <div className="HeadForm">
             <div className="row-label">
               <label htmlFor="occupation">CONTACT NUMBER <span className="required">*</span></label>
-              <input className='input-box' placeholder="E.g. Occupation,…" required  type="text" name="Occupation" value={contactnumber} onChange={(e) => setContactNumber(e.target.value)} />
+              <input className='input-box'disabled placeholder="E.g. Occupation,…" required  type="text" name="Occupation" value={contactnumber} onChange={(e) => setContactNumber(e.target.value)} />
             </div>
           </div>
           <div className="HeadForm">
             <div className="row-label">
               <label htmlFor="sss_id">LICENSE NUMBER</label>
-              <input className='input-box' type="text" name="sss_id" value={licensenumber} onChange={(e) => setLicenseNumber(e.target.value)} />
+              <input className='input-box' disabled placeholder="das" type="text" name="sss_id" value={licensenumber} onChange={(e) => setLicenseNumber(e.target.value)} />
             </div>
             <div className="row-label">
               <label htmlFor="gsis">LICENSE PLATE</label>
-              <input className='input-box' type="text" name="gsis" value={licenseplate} onChange={(e) => setLicensePlate(e.target.value)} />
+              <input className='input-box' disabled placeholder="das" type="text" name="gsis" value={licenseplate} onChange={(e) => setLicensePlate(e.target.value)} />
               </div>
             <div className="row-label">
               <label htmlFor="pagibig">VEHICLE TYPE</label>
-              <input className='input-box' type="text" name="pagibig" value={vehicletype} onChange={(e) => setVehicleType(e.target.value)} />
+              <input className='input-box' disabled placeholder="das" type="text" name="pagibig" value={vehicletype} onChange={(e) => setVehicleType(e.target.value)} />
             </div>
           </div>
           <div className="HeadForm">
             <div className="row-label">
               <label htmlFor="philhealth">BILLING STATUS</label>
-              <input className='input-box' required  type="text" name="philhealth" value={status} onChange={(e) => setStatus(e.target.value)} />
+              <input className='input-box' disabled placeholder="das" required  type="text" name="philhealth" value={status} onChange={(e) => setStatus(e.target.value)} />
             </div>
             <div className="row-label">
               <label htmlFor="others">Others</label>
-              <input className='input-box'type="text" name="others" value={others} onChange={(e) => setOthers(e.target.value)} />
+              <input className='input-box'disabled placeholder="das" type="text" name="others" value={others} onChange={(e) => setOthers(e.target.value)} />
             </div>
           </div>
          <div className="upload-file">
@@ -147,7 +122,7 @@ const EditInfoForm = ({}) => {
             <input className='input-box' required style={{ display: "none" }}  type="file" id="file" onChange={(e) => setFile(e.target.files[0])} accept=".pdf, .xlsx, .csv, .txt, .doc, .xls, .png, .jpeg, .jpg, .docx, .odt"/>
           </div>
           </div>
-          <button className='input-box' disabled={loading} onClick = {handleSubmit}>CONFIRM TRANSACTION</button>
+          <button className='input-box' disabled={loading} onClick = {handleSubmit}>CLOSE FORM</button>
           </div>
           {loading && "Uploading and compressing the image please wait..."}
           {err && <span>Something went wrong, if error persist contact your developer</span>}
@@ -158,4 +133,4 @@ const EditInfoForm = ({}) => {
   );
 };
 
-export default EditInfoForm;
+export default ViewInfoForm;
