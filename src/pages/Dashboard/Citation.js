@@ -8,7 +8,7 @@ import sidebar_menu from '../../constants/sidebar-menu';
 import Modal from '../../utils/modal';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import allActions from '../ReduxAction/indexAction';
+import allActions from '../../ReduxAction/indexAction';
 import { useNavigate } from 'react-router-dom';
 
 function Citation () {
@@ -30,7 +30,7 @@ function Citation () {
     const [data, setData] = useState('');
     const [showornumbermodal, setShowOrNumberModal] = useState(false);
     const [showviolationmodal, setShowViolationModal] = useState(false);
-    const [user, setUser] = useState(currentUser.user.Role);
+    const [user, setUser] = useState(currentUser.user?.Role);
 
     console.log('content')
     console.log(content)

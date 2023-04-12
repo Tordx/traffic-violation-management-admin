@@ -7,7 +7,7 @@ import PouchDB from "pouchdb"
 import { Navigate } from 'react-router-dom';
 import Popup from 'reactjs-popup';
 import { useDispatch } from 'react-redux';
-import allActions from '../ReduxAction/indexAction';
+import allActions from '../../ReduxAction/indexAction';
 // import uuid from 'react-native-uuid';
 
 export default function Login(props) {
@@ -28,92 +28,45 @@ export default function Login(props) {
     return <Navigate to= "/citation"/>
   }
 
-//  if(popup){
-//  return <Popup trigger={popup}>
-//   <h3>My popup</h3>
-//   <p>aler alert</p>
-//   </Popup>
-//  }
-
-   const LoginData = async () => {
-
-        // if (adminid.length == 0) {
-        //     ToastAndroid.show('Please input your Student ID', ToastAndroid.SHORT)
-        // }
-        // if (passcode.length == 0) {
-        //     ToastAndroid.show('Please input your Birthdate', ToastAndroid.SHORT)
-        // }
-
-        var result = await remoteDBTrafficAccountUserAdmin.allDocs({
-            include_docs: true,
-            attachments: true
-          });
-          if(result.rows){
-              let modifiedArr = result.rows.map(function(item){
-              return item.doc
-          });
-          let filteredData = modifiedArr.filter(item => {
-              return item.Password === passcode
-            });
+  const LoginData = async () => {
+    var result = await remoteDBTrafficAccountUserAdmin.allDocs({
+      include_docs: true,
+      attachments: true
+    });
+    
+    if (result.rows) {
+      let modifiedArr = result.rows.map(function(item) {
+        return item.doc
+      });
+      let filterRole = modifiedArr.filter((item) => {
+        return item.Role === 'Admin'
+      })
+      
+      if (filterRole.length > 0) { // check if filterRole array has any items
+        let filteredData = filterRole.filter(item => {
+          return item.UserName === username.toLowerCase()
+        });
+        if (filteredData.length > 0) { // check if filteredData array has any items
+          const newusername = filteredData[0].UserName
+          const newpasscode = filteredData[0].Password
+          
+          if (newusername === username && newpasscode === passcode) {
             dispatch(allActions.userAction.setUser(filteredData[0]))
-            const newusername = filteredData[0].UserName
-            const newpasscode = filteredData[0].Password
-            
-            if(newusername === username && newpasscode === passcode){
-              setNavigate(true)
-            }else{
-           console.log("yeyeyeyeye")
-            }
-            // if(filteredData) {
-            //     let newFilterData = filteredData.map(item => {
-            //         return item
-            //     })
-                // setData(newFilterData)
-                // if(newFilterData.length === 0){
-                //   setNavigate(false)
-                // }else{
-                //   setNavigate(true)
-                // }
-             
-                // console.log('newusername')
-                // console.log(newusername)
-                // console.log('newusername')
-                // console.log('newpasscode')
-                // console.log(newpasscode)
-                // console.log('newpasscode')
-
-                // dispatch(setStudentInfo(newFilterData))
-                // const Username = newFilterData[0].username;
-                // const Passcode = newFilterData[0].passcode
-                // try {
-                //     var Newlog = {
-                //      _id: 'fdfdfdfdfdf',
-                //      Username : username,
-                //      Passcode : passcode,
-                //     }
-                //     remoteDBTrafficAccountAdmin.put(Newlog)
-                //     .then((response) =>{
-                //       console.log(response)
-                //     })
-                //     .catch(err=>console.log(err))
-                    
-                //   } catch (error) {
-                //    console.log(error)
-                //   }
-                
-                // if((username == Username ) && (passcode == Passcode) ){
-                //     navigation.navigate('AdminHomeScreen')
-
-                //    }else{
-                //      Alert.alert('StudentID and Birthdate not match')
-            //     //    }
-            // }else{
-            //  console.log('done')
-            // }
-            
+            setNavigate(true)
+          } else {
+            alert('Credentials do not match')
+            console.log("yeyeyeyeye")
+          }
+        } else {
+          alert('User not found')
+          console.log("User not found")
         }
-       
+      } else {
+        alert('You do not have access')
+        console.log(filterRole)
       }
+    }
+  }
 
   return (
     <div className='login-container' id='container-colors'>
