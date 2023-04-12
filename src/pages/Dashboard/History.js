@@ -134,20 +134,14 @@ function History () {
     }
 
     const toedit = (violators) => {
-        console.log('====================================violators');
-        console.log(violators);
-        console.log('====================================violators');
+    
         dispatch(allActions.userAction.setUser(violators)) 
         navigate('/viewform')
     }
 
     const seeviolation = (violators) => {
-        console.log('====================================violators');
-        console.log(violators.Violationdata);
+
         setViolationData(violators.Violationdata)
-        console.log('====================================violators');
-        // dispatch(allActions.userAction.setUser(violators)) 
-        // navigate('/editform')
     }
 
    
@@ -207,6 +201,7 @@ function History () {
 
                 <table>
                     <thead>
+                        <th>DATE OF APPREHENTION</th>
                         <th>REF Number</th>
                         <th>Driver Nname</th>
                         <th>Driver Address</th>
@@ -222,6 +217,7 @@ function History () {
                         <tbody>
                             {content.map((violators, index) => (
                                 <tr key={index}>
+                                    <td><span>{violators.date} / {violators.time}</span></td>
                                     <td><span>{violators.refNum}</span></td>
                                     <td><span>{violators.DriverName}</span></td>
                                     <td><span>{violators.DriverAddress}</span></td>

@@ -32,6 +32,10 @@ function Citation () {
     const [showviolationmodal, setShowViolationModal] = useState(false);
     const [user, setUser] = useState(currentUser.user.Role);
 
+    console.log('content')
+    console.log(content)
+    console.log('content')
+
     // const [show, setShow] = useState(false);
     useEffect(() => {
         newdata()
@@ -79,19 +83,18 @@ function Citation () {
             let newFilterData = filteredData.map(item => {
               return item;
             });
+            
             if(user === "Admin") {
-            let admindata = newFilterData.filter((item) => item.Status === "Unpaid");
-            setContent(admindata)
+                let admindata = newFilterData.filter((item) => item.Status === "Unpaid");
+                setContent(admindata)
             }else{
-                let admindata = newFilterData.filter((item) => item.Status === "Paid");
-            setContent(admindata)
+                let admindata = newFilterData.filter((item) => item.Status !== "Close");
+                setContent(admindata)
 
             }
           }
     }
 }
-
-
     // Search
     const __handleSearch = (event) => {
         setSearch(event.target.value);
@@ -118,9 +121,6 @@ function Citation () {
     const StatusChange = async() => {
 
         const remoteDBViolation = new PouchDB('https://root:root@database.vidarsson.online/z_violation')
-        console.log('dsdsd')
-        console.log(data)
-        console.log('dsdsd')
         remoteDBViolation.get(data._id)
         .then(function(doc) {
             return remoteDBViolation.put({
@@ -138,18 +138,12 @@ function Citation () {
     }
 
     const toedit = (violators) => {
-        console.log('====================================violators');
-        console.log(violators);
-        console.log('====================================violators');
         dispatch(allActions.userAction.setUser(violators)) 
         navigate('/editform')
     }
 
     const seeviolation = (violators) => {
-        console.log('====================================violators');
-        console.log(violators.Violationdata);
         setViolationData(violators.Violationdata)
-        console.log('====================================violators');
         // dispatch(allActions.userAction.setUser(violators)) 
         // navigate('/editform')
     }
@@ -212,6 +206,7 @@ function Citation () {
 
                 <table>
                     <thead>
+                        <th>DATE OF APPREHENTION</th>
                         <th>ID</th>
                         <th>DRIVER</th>
                         <th>Driver Address</th>
@@ -227,6 +222,7 @@ function Citation () {
                         <tbody>
                             {content.map((violators, index) => (
                                 <tr key={index}>
+                                    <td><span>{violators.date} / {violators.time}</span></td>
                                     <td><span>{violators.refNum}</span></td>
                                     <td><span>{violators.DriverName}</span></td>
                                     <td><span>{violators.DriverAddress}</span></td>
@@ -239,6 +235,7 @@ function Citation () {
                                     <td><span>{violators.Status}</span></td>
                                     </button>) : (<button  href = '/editform' onClick={() => toedit(violators) }>
                                      EDIT
+                                     <td><span>{violators.Status}</span></td>
                                     </button>) }
                                 </tr>
                             ))}
